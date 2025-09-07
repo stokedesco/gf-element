@@ -3,7 +3,7 @@
  * Plugin Name:         Stoke Gravity Forms for Elementor
  * Plugin URI:          https://stokedesign.co/sandbox
  * Description:         Allows Gravity Forms to easily be inserted and styled in Elementor.
- * Version:             1.2.0
+ * Version:             1.0
  * Author:              Stoke Design Co
  * Author URI:          https://stokedesign.co/
  * Text Domain:         stoke-gf-elementor
