@@ -148,21 +148,13 @@ class Widget extends Widget_Base {
 
 $textarea = '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield .ginput_container textarea';
 
-$checks_radios = implode(
-        ', ',
-        array(
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]',
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]',
-        )
-);
-
 // Pseudo-element selectors using the label for custom checkboxes and radios.
 $checks_radios_before = implode(
-        ', ',
-        array(
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"] + label::before',
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"] + label::before',
-        )
+       ', ',
+       array(
+               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"] + label::before',
+               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"] + label::before',
+       )
 );
 
 $checks_radios_checked_before = implode(
@@ -703,19 +695,6 @@ $this->end_controls_section();
                         'label' => __( 'Checkboxes & Radios', 'stoke-gf-elementor' ),
                         'tab'   => Controls_Manager::TAB_STYLE,
                         )
-                        );
-
-                        // Remove default appearance and create pseudo elements.
-                        $this->add_control(
-                                'checks_radios_reset_native',
-                                array(
-                                        'type'      => Controls_Manager::HIDDEN,
-                                        'selectors' => array(
-                                                $checks_radios       => 'opacity: 0; position: absolute;',
-                                                $checks_radios_labels => 'position: relative; display: inline-block; padding-left: 1.5em;',
-                                                $checks_radios_before => 'content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 1em; height: 1em;',
-                                        ),
-                                )
                         );
 
                         // Accent color control for check mark / selection.

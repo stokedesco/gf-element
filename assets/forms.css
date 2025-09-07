@@ -1,5 +1,5 @@
 /* Styling adjustments for Stoke Gravity Forms for Elementor fields */
-.sge-gravity-form input,
+.sge-gravity-form input:not([type="checkbox"]):not([type="radio"]),
 .sge-gravity-form select,
 .sge-gravity-form textarea {
     -webkit-appearance: none;
@@ -12,7 +12,7 @@
     box-shadow: none;
 }
 
-.sge-gravity-form input:focus,
+.sge-gravity-form input:not([type="checkbox"]):not([type="radio"]):focus,
 .sge-gravity-form select:focus,
 .sge-gravity-form textarea:focus {
     box-shadow: none !important;
@@ -96,4 +96,45 @@
 .sge-gravity-form textarea::selection,
 .sge-gravity-form textarea::-moz-selection {
     background: transparent;
+}
+
+/* Checkboxes and radios */
+.sge-gravity-form .ginput_container_checkbox input[type="checkbox"],
+.sge-gravity-form .ginput_container_radio input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.sge-gravity-form .ginput_container_checkbox label,
+.sge-gravity-form .ginput_container_radio label {
+    position: relative;
+    display: inline-block;
+    padding-left: 1.5em;
+    cursor: pointer;
+}
+
+.sge-gravity-form .ginput_container_checkbox input[type="checkbox"] + label::before,
+.sge-gravity-form .ginput_container_radio input[type="radio"] + label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1em;
+    height: 1em;
+    border: 1px solid currentColor;
+    background: transparent;
+}
+
+.sge-gravity-form .ginput_container_checkbox input[type="checkbox"] + label::before {
+    border-radius: 2px;
+}
+
+.sge-gravity-form .ginput_container_radio input[type="radio"] + label::before {
+    border-radius: 50%;
+}
+
+.sge-gravity-form .ginput_container_checkbox input[type="checkbox"]:checked + label::before,
+.sge-gravity-form .ginput_container_radio input[type="radio"]:checked + label::before {
+    background: currentColor;
 }
