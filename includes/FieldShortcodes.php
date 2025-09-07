@@ -294,8 +294,9 @@ class FieldShortcodes {
                 <div id="stkc-gf-sc-example">
                     <?php foreach ( $form_parts as $fid => $parts ) :
                         $preview = '?eid={entry_id}' . ( $parts ? '&' . implode( '&', $parts ) : '' );
+                        $label   = isset( $forms[ $fid ]['title'] ) ? $forms[ $fid ]['title'] : 'Form ' . $fid;
                         ?>
-                        <p class="description"><code><?php echo esc_html( $preview ); ?></code> <button type="button" class="button button-small stkc-copy" data-copy="<?php echo esc_attr( $preview ); ?>"><?php esc_html_e( 'Copy', 'stoke-gf-elementor' ); ?></button></p>
+                        <p class="description"><strong><?php echo esc_html( $label . ':' ); ?></strong> <code><?php echo esc_html( $preview ); ?></code> <button type="button" class="button button-small stkc-copy" data-copy="<?php echo esc_attr( $preview ); ?>"><?php esc_html_e( 'Copy', 'stoke-gf-elementor' ); ?></button></p>
                     <?php endforeach; ?>
                 </div>
                 <p class="description"><?php esc_html_e( 'Copy each query and add it to the end of your confirmation page URL.', 'stoke-gf-elementor' ); ?></p>
