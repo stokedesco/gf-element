@@ -134,6 +134,19 @@
 }
 
 /* Checkboxes and radios */
+.sge-gravity-form .ginput_container_checkbox ul,
+.sge-gravity-form .ginput_container_radio ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sge-gravity-form .ginput_container_checkbox li,
+.sge-gravity-form .ginput_container_radio li {
+    margin: 0;
+    padding: 0;
+}
+
 .sge-gravity-form .ginput_container_checkbox input[type="checkbox"],
 .sge-gravity-form .ginput_container_radio input[type="radio"] {
     position: absolute;
@@ -144,7 +157,7 @@
 .sge-gravity-form .ginput_container_radio label {
     position: relative;
     display: inline-block;
-    padding-left: 0px;
+    padding-left: 1.5em;
     cursor: pointer;
 }
 
