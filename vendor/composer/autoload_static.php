@@ -9,12 +9,12 @@ class ComposerStaticIniteb2b3967f9df5316c44d2db7fdaf01de
     public static $prefixLengthsPsr4 = array (
         'G' => 
         array (
-            'GravityKit\\GravityFormsElementorWidget\\' => 39,
+            'StokeGravityElementor\\GravityFormsElementorWidget\\' => 39,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'GravityKit\\GravityFormsElementorWidget\\' => 
+        'StokeGravityElementor\\GravityFormsElementorWidget\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
@@ -22,7 +22,7 @@ class ComposerStaticIniteb2b3967f9df5316c44d2db7fdaf01de
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'GravityKit\\GravityFormsElementorWidget\\Widget' => __DIR__ . '/../..' . '/src/Widget.php',
+        'StokeGravityElementor\\GravityFormsElementorWidget\\Widget' => __DIR__ . '/../..' . '/src/Widget.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

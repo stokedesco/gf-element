@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'GravityKit\\GravityFormsElementorWidget\\' => array($baseDir . '/src'),
+    'StokeGravityElementor\\GravityFormsElementorWidget\\' => array($baseDir . '/src'),
 );
