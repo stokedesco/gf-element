@@ -240,12 +240,12 @@
             "version_normalized": "dev-main",
             "source": {
                 "type": "git",
-                "url": "git@github.com:GravityKit/Foundation.git",
+                "url": "git@github.com:StokeGravityElementor/Foundation.git",
                 "reference": "d6b668d799afb6ff06a55961bd9fbb83664e5455"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GravityKit/Foundation/zipball/d6b668d799afb6ff06a55961bd9fbb83664e5455",
+                "url": "https://api.github.com/repos/StokeGravityElementor/Foundation/zipball/d6b668d799afb6ff06a55961bd9fbb83664e5455",
                 "reference": "d6b668d799afb6ff06a55961bd9fbb83664e5455",
                 "shasum": ""
             },
@@ -278,8 +278,8 @@
             "extra": {
                 "strauss": {
                     "target_directory": "vendor_prefixed",
-                    "namespace_prefix": "GravityKit\\Foundation\\ThirdParty",
-                    "classmap_prefix": "GravityKit_Foundation_ThirdParty_",
+                    "namespace_prefix": "StokeGravityElementor\\Foundation\\ThirdParty",
+                    "classmap_prefix": "StokeGravityElementor_Foundation_ThirdParty_",
                     "packages": [
                         "illuminate/support",
                         "illuminate/validation",
@@ -303,7 +303,7 @@
             "installation-source": "source",
             "autoload": {
                 "psr-4": {
-                    "GravityKit\\Foundation\\": "src"
+                    "StokeGravityElementor\\Foundation\\": "src"
                 }
             },
             "scripts": {
@@ -341,13 +341,13 @@
             ],
             "authors": [
                 {
-                    "name": "GravityKit",
+                    "name": "StokeGravityElementor",
                     "email": "support@gravitykit.com"
                 }
             ],
             "support": {
-                "source": "https://github.com/GravityKit/Foundation/tree/v1.2.21",
-                "issues": "https://github.com/GravityKit/Foundation/issues"
+                "source": "https://github.com/StokeGravityElementor/Foundation/tree/v1.2.21",
+                "issues": "https://github.com/StokeGravityElementor/Foundation/issues"
             },
             "install-path": "../gravitykit/foundation"
         },

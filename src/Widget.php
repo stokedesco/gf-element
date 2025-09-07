@@ -2,10 +2,10 @@
 /**
  * Class Gravity_Forms.
  *
- * @package GravityKit\GravityFormsElementorWidget
+ * @package StokeGravityElementor\GravityFormsElementorWidget
  */
 
-namespace GravityKit\GravityFormsElementorWidget;
+namespace StokeGravityElementor\GravityFormsElementorWidget;
 
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Border;
@@ -85,7 +85,7 @@ class Widget extends Widget_Base {
 			'form',
 			'gravity forms',
 			'gravityforms',
-			'gravitykit',
+                        'stokegravityelementor',
 		);
 	}
 
@@ -145,16 +145,32 @@ class Widget extends Widget_Base {
 $textarea = '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield .ginput_container textarea';
 
 $checks_radios = implode(
-', ',
-array(
-'{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]',
-'{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]',
-)
+        ', ',
+        array(
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]',
+        )
+);
+
+$checks_radios_checked = implode(
+        ', ',
+        array(
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]:checked',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]:checked',
+        )
+);
+
+$checks_radios_unchecked = implode(
+        ', ',
+        array(
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]:not(:checked)',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]:not(:checked)',
+        )
 );
 
 $checks_radios_labels = implode(
-', ',
-array(
+        ', ',
+        array(
 '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox label',
 '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio label',
 )
@@ -234,48 +250,8 @@ array(
 
 		$this->end_controls_section();
 
-		$this->start_controls_section(
-			'section_form_advanced',
-			array(
-				'label' => __( 'Advanced', 'gk-gravity-forms-elementor-widget' ),
-				'tab'   => Controls_Manager::TAB_ADVANCED,
-			)
-		);
-
-		$this->add_control(
-			'field_values',
-			array(
-				'label'       => __( 'Field Values', 'gk-gravity-forms-elementor-widget' ),
-				'type'        => Controls_Manager::TEXTAREA,
-				'default'     => '',
-				// translators: Do not translate placeholders in square brackets. They are placeholders.
-				'description' => strtr(
-                    __( 'Enter field values in the format: [example]. [link]Learn more.[/link]', 'gk-gravity-forms-elementor-widget' ),
-                    array(
-						'[example]' => '<code>input_1=First Name&amp;input_2=Last Name</code>',
-						'[link]'    => '<a href="https://docs.gravityforms.com/allow-field-to-be-populated-dynamically/#h-block" target="_blank">',
-						'[/link]'   => '<span class="screen-reader-text">' . esc_attr__( '(This link opens in a new window.)', 'gk-gravity-forms-elementor-widget' ) . '</span></a>',
-					)
-                ),
-			)
-		);
-
-		$this->add_control(
-			'tabindex',
-			array(
-				'label'       => __( 'Tab Index', 'gk-gravity-forms-elementor-widget' ),
-				'type'        => Controls_Manager::NUMBER,
-				'default'     => 0,
-				'min'         => 0,
-				'step'        => 1,
-				'description' => __( 'Set the starting tabindex for the form.', 'gk-gravity-forms-elementor-widget' ),
-			)
-		);
-
-               $this->end_controls_section();
-
-               $this->start_controls_section(
-                       'section_heading',
+              $this->start_controls_section(
+                      'section_heading',
                        array(
                                'label' => __( 'Form Heading & Description', 'gk-gravity-forms-elementor-widget' ),
                                'tab'   => Controls_Manager::TAB_STYLE,
@@ -440,9 +416,9 @@ array(
                $this->end_controls_section();
 
                $this->start_controls_section(
-                       'section_outer',
+                       'section_form_spacing',
                        array(
-                               'label' => __( 'Outer', 'gk-gravity-forms-elementor-widget' ),
+                               'label' => __( 'Form Spacing', 'gk-gravity-forms-elementor-widget' ),
                                'tab'   => Controls_Manager::TAB_STYLE,
                        )
                );
@@ -640,67 +616,127 @@ $inputs => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT
 
 $this->end_controls_section();
 
-$this->start_controls_section(
-'section_checks_radios',
-array(
-'label' => __( 'Checkboxes & Radios', 'gk-gravity-forms-elementor-widget' ),
-'tab'   => Controls_Manager::TAB_STYLE,
-)
-);
-
-$this->add_control(
-'checks_radios_accent_color',
-array(
-'label'     => __( 'Accent Color', 'gk-gravity-forms-elementor-widget' ),
-'type'      => Controls_Manager::COLOR,
-'selectors' => array(
-$checks_radios => 'accent-color: {{VALUE}};',
-),
-)
-);
-
-$this->add_group_control(
-Group_Control_Typography::get_type(),
-array(
-'name'     => 'checks_radios_label_typography',
-'selector' => $checks_radios_labels,
-)
-);
-
-$this->add_control(
-'checks_radios_label_color',
-array(
-'label'     => __( 'Label Color', 'gk-gravity-forms-elementor-widget' ),
-'type'      => Controls_Manager::COLOR,
-'selectors' => array(
-$checks_radios_labels => 'color: {{VALUE}};',
-),
-)
-);
-
-$this->add_responsive_control(
-'checks_radios_label_spacing',
-array(
-'label'      => __( 'Label Spacing', 'gk-gravity-forms-elementor-widget' ),
-'type'       => Controls_Manager::SLIDER,
-'size_units' => array( 'px', 'em' ),
-'range'      => array(
-'px' => array(
-'min' => 0,
-'max' => 50,
-),
-'em' => array(
-'min' => 0,
-'max' => 5,
-),
-),
-'selectors'  => array(
-$checks_radios_labels => 'margin-left: {{SIZE}}{{UNIT}};',
-),
-)
-);
-
-$this->end_controls_section();
+			$this->start_controls_section(
+			'section_checks_radios',
+			array(
+			'label' => __( 'Checkboxes & Radios', 'gk-gravity-forms-elementor-widget' ),
+			'tab'   => Controls_Manager::TAB_STYLE,
+			)
+			);
+			$this->add_group_control(
+			        Group_Control_Border::get_type(),
+			        array(
+			                'name'     => 'checks_radios_inactive_border',
+			                'selector' => $checks_radios_unchecked,
+			        )
+			);
+			
+			$this->add_control(
+			        'checks_radios_inactive_background_color',
+			        array(
+			                'label'     => __( 'Inactive Background Color', 'gk-gravity-forms-elementor-widget' ),
+			                'type'      => Controls_Manager::COLOR,
+			                'selectors' => array(
+			                        $checks_radios_unchecked => 'background-color: {{VALUE}};',
+			                ),
+			        )
+			);
+			
+			$this->add_control(
+			        'checks_radios_inactive_color',
+			        array(
+			                'label'     => __( 'Inactive Color', 'gk-gravity-forms-elementor-widget' ),
+			                'type'      => Controls_Manager::COLOR,
+			                'selectors' => array(
+			                        $checks_radios_unchecked => 'color: {{VALUE}};',
+			                ),
+			        )
+			);
+			
+			$this->add_group_control(
+			        Group_Control_Border::get_type(),
+			        array(
+			                'name'     => 'checks_radios_active_border',
+			                'selector' => $checks_radios_checked,
+			        )
+			);
+			
+			$this->add_control(
+			        'checks_radios_active_background_color',
+			        array(
+			                'label'     => __( 'Active Background Color', 'gk-gravity-forms-elementor-widget' ),
+			                'type'      => Controls_Manager::COLOR,
+			                'selectors' => array(
+			                        $checks_radios_checked => 'background-color: {{VALUE}};',
+			                ),
+			        )
+			);
+			
+			$this->add_control(
+			        'checks_radios_active_color',
+			        array(
+			                'label'     => __( 'Active Color', 'gk-gravity-forms-elementor-widget' ),
+			                'type'      => Controls_Manager::COLOR,
+			                'selectors' => array(
+			                        $checks_radios_checked => 'color: {{VALUE}};',
+			                ),
+			        )
+			);
+			
+			$this->add_responsive_control(
+			        'checks_radios_border_radius',
+			        array(
+			                'label'      => __( 'Border Radius', 'gk-gravity-forms-elementor-widget' ),
+			                'type'       => Controls_Manager::DIMENSIONS,
+			                'size_units' => array( 'px', 'em', '%' ),
+			                'selectors'  => array(
+			                        $checks_radios => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+			                ),
+			        )
+			);
+			
+			$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+			'name'     => 'checks_radios_label_typography',
+			'selector' => $checks_radios_labels,
+			)
+			);
+			
+			$this->add_control(
+			'checks_radios_label_color',
+			array(
+			'label'     => __( 'Label Color', 'gk-gravity-forms-elementor-widget' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => array(
+			$checks_radios_labels => 'color: {{VALUE}};',
+			),
+			)
+			);
+			
+			$this->add_responsive_control(
+			'checks_radios_label_spacing',
+			array(
+			'label'      => __( 'Label Spacing', 'gk-gravity-forms-elementor-widget' ),
+			'type'       => Controls_Manager::SLIDER,
+			'size_units' => array( 'px', 'em' ),
+			'range'      => array(
+			'px' => array(
+			'min' => 0,
+			'max' => 50,
+			),
+			'em' => array(
+			'min' => 0,
+			'max' => 5,
+			),
+			),
+			'selectors'  => array(
+			$checks_radios_labels => 'margin-left: {{SIZE}}{{UNIT}};',
+			),
+			)
+			);
+			
+			$this->end_controls_section();
 
 $this->start_controls_section(
 'section_textarea',
@@ -848,6 +884,18 @@ $this->end_controls_section();
                         )
                 );
 
+               $this->add_responsive_control(
+                       'buttons_border_radius',
+                       array(
+                               'label'      => __( 'Border Radius', 'gk-gravity-forms-elementor-widget' ),
+                               'type'       => Controls_Manager::DIMENSIONS,
+                               'size_units' => array( 'px', 'em', '%' ),
+                               'selectors'  => array(
+                                       $buttons => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                               ),
+                       )
+               );
+
                 $this->add_responsive_control(
                         'buttons_padding',
                         array(
@@ -905,6 +953,18 @@ $this->end_controls_section();
                         ),
                 );
 
+               $this->add_responsive_control(
+                       'file_upload_border_radius',
+                       array(
+                               'label'      => __( 'Border Radius', 'gk-gravity-forms-elementor-widget' ),
+                               'type'       => Controls_Manager::DIMENSIONS,
+                               'size_units' => array( 'px', 'em', '%' ),
+                               'selectors'  => array(
+                                       $file_upload_button => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                               ),
+                       )
+               );
+
                 $this->end_controls_section();
 
                 $this->start_controls_section(
@@ -960,6 +1020,46 @@ $this->end_controls_section();
                 );
 
                 $this->end_controls_section();
+
+               $this->start_controls_section(
+                       'section_form_advanced',
+                       array(
+                               'label' => __( 'Advanced', 'gk-gravity-forms-elementor-widget' ),
+                               'tab'   => Controls_Manager::TAB_ADVANCED,
+                       )
+               );
+
+               $this->add_control(
+                       'field_values',
+                       array(
+                               'label'       => __( 'Field Values', 'gk-gravity-forms-elementor-widget' ),
+                               'type'        => Controls_Manager::TEXTAREA,
+                               'default'     => '',
+                               // translators: Do not translate placeholders in square brackets. They are placeholders.
+                               'description' => strtr(
+                    __( 'Enter field values in the format: [example]. [link]Learn more.[/link]', 'gk-gravity-forms-elementor-widget' ),
+                    array(
+                                               '[example]' => '<code>input_1=First Name&amp;input_2=Last Name</code>',
+                                               '[link]'    => '<a href="https://docs.gravityforms.com/allow-field-to-be-populated-dynamically/#h-block" target="_blank">',
+                                               '[/link]'   => '<span class="screen-reader-text">' . esc_attr__( '(This link opens in a new window.)', 'gk-gravity-forms-elementor-widget' ) . '</span></a>',
+                                       )
+               ),
+                       )
+               );
+
+               $this->add_control(
+                       'tabindex',
+                       array(
+                               'label'       => __( 'Tab Index', 'gk-gravity-forms-elementor-widget' ),
+                               'type'        => Controls_Manager::NUMBER,
+                               'default'     => 0,
+                               'min'         => 0,
+                               'step'        => 1,
+                               'description' => __( 'Set the starting tabindex for the form.', 'gk-gravity-forms-elementor-widget' ),
+                       )
+               );
+
+              $this->end_controls_section();
 
         }
 

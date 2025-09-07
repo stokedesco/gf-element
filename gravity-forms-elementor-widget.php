@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:         Gravity Forms Widget for Elementor
- * Plugin URI:          https://www.gravitykit.com/products/gravity-forms-elementor-widget/?utm_source=plugin&utm_campaign=elementor-widget&utm_content=pluginuri
+ * Plugin URI:          https://www.stokegravityelementor.com/products/gravity-forms-elementor-widget/?utm_source=plugin&utm_campaign=elementor-widget&utm_content=pluginuri
  * Description:         Integrates Gravity Forms with Elementor page builder. Simple. Configurable. Powerful.
  * Version:             1.1b
  * Author:              Stoke Design Co
@@ -12,7 +12,7 @@
  * License URI:         https://www.gnu.org/licenses/gpl-3.0.en.html
  */
 
-namespace GravityKit\GravityFormsElementorWidget;
+namespace StokeGravityElementor\GravityFormsElementorWidget;
 
 use GFCommon;
 
@@ -54,11 +54,11 @@ add_action(
 
 		add_action(
             'elementor/editor/after_enqueue_styles',
-            array(
-				'GravityKit\GravityFormsElementorWidget\Widget',
-				'enqueue_editor_styles',
+             array(
+                                'StokeGravityElementor\GravityFormsElementorWidget\Widget',
+                                'enqueue_editor_styles',
             )
-		);
+                );
 	}
 );
 

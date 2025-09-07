@@ -1,5 +1,5 @@
 === Gravity Forms Widget for Elementor ===
-Contributors: gravitykit
+Contributors: stokegravityelementor
 Tags: gravity forms, elementor, widget, form builder
 Requires at least: 5.0
 Tested up to: 6.7
@@ -51,7 +51,7 @@ This hotfix update addresses a non-critical PHP notice in WordPress 6.7 and newe
 * PHP notice in WordPress 6.7 caused by initializing product translations too early.
 
 #### 🔄 Updated
-* [Foundation](https://www.gravitykit.com/foundation/) to version 1.2.21.
+* [Foundation](https://www.stokegravityelementor.com/foundation/) to version 1.2.21.
 
 = 1.0.0 =
 
@@ -59,7 +59,7 @@ This hotfix update addresses a non-critical PHP notice in WordPress 6.7 and newe
 
 == Credits ==
 
-This plugin was developed by GravityKit. Gravity Forms is a product of Rocketgenius, Inc. Elementor is a product of Elementor Ltd. This plugin is not affiliated with or endorsed by Rocketgenius, Inc. or Elementor Ltd.
+This plugin was developed by StokeGravityElementor. Gravity Forms is a product of Rocketgenius, Inc. Elementor is a product of Elementor Ltd. This plugin is not affiliated with or endorsed by Rocketgenius, Inc. or Elementor Ltd.
 
 == License ==
 This plugin is licensed under the GPLv2 or later.

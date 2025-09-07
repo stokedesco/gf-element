@@ -7,5 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'GravityKit\\GravityFormsElementorWidget\\Widget' => $baseDir . '/src/Widget.php',
+    'StokeGravityElementor\\GravityFormsElementorWidget\\Widget' => $baseDir . '/src/Widget.php',
 );
