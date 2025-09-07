@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name:         Stoke GF Elementor
+ * Plugin Name:         Stoke Gravity Forms for Elementor
  * Plugin URI:          https://stokedesign.co/sandbox
- * Description:         Allows Gravity forms to easily be inserted and styled in Elementor.
- * Version:             1.0.0
+ * Description:         Allows Gravity Forms to easily be inserted and styled in Elementor.
+ * Version:             1.2.0
  * Author:              Stoke Design Co
  * Author URI:          https://stokedesign.co/
  * Text Domain:         stoke-gf-elementor
@@ -17,10 +17,27 @@ namespace StokeGFElementor;
 use GFCommon;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+        exit; // Exit if accessed directly.
 }
 
+require_once plugin_dir_path( __FILE__ ) . 'includes/FieldShortcodes.php';
+
 const MIN_GF_VERSION = '2.7.15';
+
+// Add a settings link on the plugins page.
+add_filter(
+    'plugin_action_links_' . plugin_basename( __FILE__ ),
+    function ( $links ) {
+        $links[] = sprintf(
+            '<a href="%s">%s</a>',
+
+            esc_url( admin_url( 'admin.php?page=stkc-gf-field-shortcodes' ) ),
+
+            esc_html__( 'Settings', 'stoke-gf-elementor' )
+        );
+        return $links;
+    }
+);
 
 /**
  * Check if Gravity Forms is installed and activated, and if the minimum required version is met.
@@ -70,9 +87,9 @@ add_action(
             // translators: Do not translate [version]; it is replaced with the minimum required Gravity Forms version required.
                 esc_html__( '[plugin_name] requires Gravity Forms [version] or higher. Please upgrade Gravity Forms to use this widget.', 'stoke-gf-elementor' ),
                 array(
-					'[plugin_name]' => esc_html__( 'Stoke GF Elementor', 'stoke-gf-elementor' ),
-					'[version]'     => MIN_GF_VERSION,
-                )
+                                        '[plugin_name]' => esc_html__( 'Stoke Gravity Forms for Elementor', 'stoke-gf-elementor' ),
+                                        '[version]'     => MIN_GF_VERSION,
+                                )
             )
 		);
 

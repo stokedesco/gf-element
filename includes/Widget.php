@@ -56,10 +56,10 @@ class Widget extends Widget_Base {
 	 * @access public
 	 *
 	 * @return string Widget title.
-	 */
-	public function get_title() {
-		return __( 'Stoke GF Elementor', 'stoke-gf-elementor' );
-	}
+        */
+        public function get_title() {
+                return __( 'Stoke Gravity Forms for Elementor', 'stoke-gf-elementor' );
+        }
 
 	/**
 	 * Retrieves the list of categories the Gravity Forms widget belongs to.
@@ -979,6 +979,15 @@ $this->end_controls_section();
                         array(
                                 'name'     => 'buttons_background',
                                 'selector' => $buttons,
+                        )
+                );
+
+                $this->add_group_control(
+                        Group_Control_Background::get_type(),
+                        array(
+                                'name'     => 'buttons_hover_background',
+                                'label'    => __( 'Hover Background', 'stoke-gf-elementor' ),
+                                'selector' => str_replace( ', ', ':hover, ', $buttons ) . ':hover',
                         )
                 );
 
