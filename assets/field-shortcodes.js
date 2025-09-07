@@ -15,11 +15,7 @@ jQuery(function($){
     }
 
     function updatePreview($row){
-        var form = $.trim($row.find('select[name$="[form_id]"]').val());
-        var field = $.trim($row.find('select[name$="[field_id]"]').val());
-
-    function updatePreview($row){
-        var form = $.trim($row.find('input[name$="[form_id]"]').val());
+        var form  = $.trim($row.find('input[name$="[form_id]"]').val());
         var field = $.trim($row.find('input[name$="[field_id]"]').val());
 
         var preview = '';
@@ -33,12 +29,20 @@ jQuery(function($){
 
     $('.stkc-gf-mappings tbody').on('change', 'select[name$="[form_id]"]', function(){
         var $row = $(this).closest('tr');
+        var val = $(this).val();
         var $fieldSelect = $row.find('select[name$="[field_id]"]');
-        populateFields($(this).val(), $fieldSelect, '');
+        $row.find('input[name$="[form_id]"]').val(val);
+        populateFields(val, $fieldSelect, '');
         updatePreview($row);
     });
 
     $('.stkc-gf-mappings tbody').on('change', 'select[name$="[field_id]"]', function(){
+        var $row = $(this).closest('tr');
+        var val = $(this).val();
+        $row.find('input[name$="[field_id]"]').val(val);
+        updatePreview($row);
+    });
+
     $('.stkc-gf-mappings tbody').on('input', 'input[name$="[form_id]"], input[name$="[field_id]"]', function(){
         updatePreview($(this).closest('tr'));
     });
@@ -52,6 +56,9 @@ jQuery(function($){
         var $formSelect = $rows.eq(0).find('select[name$="[form_id]"]');
         var $fieldSelect = $rows.eq(0).find('select[name$="[field_id]"]');
         populateFields($formSelect.val(), $fieldSelect, '');
+        $rows.eq(0).find('input[name$="[form_id]"]').val($formSelect.val());
+        $rows.eq(0).find('input[name$="[field_id]"]').val($fieldSelect.val());
+        updatePreview($rows.eq(0));
     });
 
     $('.stkc-gf-mappings tbody').on('click', '.stkc-remove-row', function(){
@@ -67,19 +74,16 @@ jQuery(function($){
         }
     });
 
-
     $('.stkc-gf-mappings tbody tr').each(function(){
         var $tr = $(this);
         if(!$tr.hasClass('stkc-preview-row')){
             var $formSelect = $tr.find('select[name$="[form_id]"]');
             var $fieldSelect = $tr.find('select[name$="[field_id]"]');
             populateFields($formSelect.val(), $fieldSelect, $fieldSelect.val());
-
-    // Initial update for existing rows
-    $('.stkc-gf-mappings tbody tr').each(function(){
-        var $tr = $(this);
-        if(!$tr.hasClass('stkc-preview-row')){
+            $tr.find('input[name$="[form_id]"]').val($formSelect.val());
+            $tr.find('input[name$="[field_id]"]').val($fieldSelect.val());
             updatePreview($tr);
         }
     });
 });
+

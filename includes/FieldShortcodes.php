@@ -143,7 +143,8 @@ class FieldShortcodes {
      * Register admin menu.
      */
     public static function register_menu() {
-        add_options_page(
+        add_submenu_page(
+            'gf_edit_forms',
             esc_html__( 'GF Field Shortcodes', 'stoke-gf-elementor' ),
             esc_html__( 'GF Field Shortcodes', 'stoke-gf-elementor' ),
             'manage_options',
@@ -163,7 +164,7 @@ class FieldShortcodes {
             return;
         }
 
-        if ( 'settings_page_stkc-gf-field-shortcodes' !== $hook ) {
+        if ( false === strpos( $hook, 'stkc-gf-field-shortcodes' ) ) {
             return;
         }
 
