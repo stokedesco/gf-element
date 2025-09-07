@@ -22,8 +22,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 const MIN_GF_VERSION = '2.7.15';
 
-require_once plugin_dir_path( __FILE__ ) . 'includes/Widget.php';
-
 /**
  * Check if Gravity Forms is installed and activated, and if the minimum required version is met.
  *
@@ -41,18 +39,20 @@ function meets_gravity_forms_requirements() {
 add_action(
     'elementor/widgets/register',
     function ( $widgets_manager ) {
-		if ( ! meets_gravity_forms_requirements() ) {
-			return;
-		}
+                if ( ! meets_gravity_forms_requirements() ) {
+                        return;
+                }
 
-		// Register widget.
-		$widgets_manager->register( new Widget() );
+                require_once plugin_dir_path( __FILE__ ) . 'includes/Widget.php';
+
+                // Register widget.
+                $widgets_manager->register( new Widget() );
 
                 add_action(
                         'elementor/editor/after_enqueue_styles',
                         array( Widget::class, 'enqueue_editor_styles' )
                 );
-	}
+        }
 );
 
 /*
