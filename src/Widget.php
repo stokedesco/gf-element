@@ -222,15 +222,40 @@ class Widget extends Widget_Base {
 			)
 		);
 
-		$this->end_controls_section();
+                $this->end_controls_section();
 
-		$this->start_controls_section(
-			'section_form_style',
-			array(
-				'label' => __( 'Form', 'gk-gravity-forms-elementor-widget' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
-			)
-		);
+                $this->start_controls_section(
+                        'section_style_master',
+                        array(
+                                'label' => __( 'Styles', 'gk-gravity-forms-elementor-widget' ),
+                                'tab'   => Controls_Manager::TAB_STYLE,
+                        )
+                );
+
+                $this->add_control(
+                        'enable_custom_styles',
+                        array(
+                                'label'        => __( 'Custom Styles', 'gk-gravity-forms-elementor-widget' ),
+                                'type'         => Controls_Manager::SWITCHER,
+                                'label_on'     => __( 'Yes', 'gk-gravity-forms-elementor-widget' ),
+                                'label_off'    => __( 'No', 'gk-gravity-forms-elementor-widget' ),
+                                'return_value' => 'yes',
+                                'default'      => 'yes',
+                        )
+                );
+
+                $this->end_controls_section();
+
+                $this->start_controls_section(
+                        'section_form_style',
+                        array(
+                                'label'     => __( 'Form', 'gk-gravity-forms-elementor-widget' ),
+                                'tab'       => Controls_Manager::TAB_STYLE,
+                                'condition' => array(
+                                        'enable_custom_styles' => 'yes',
+                                ),
+                        )
+                );
 
 		$this->add_control(
 			'form_background_color',
