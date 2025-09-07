@@ -220,6 +220,14 @@ $sub_labels = implode(
                         )
                 );
 
+               $submit_button_hover = implode(
+                       ', ',
+                       array(
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_button:hover',
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_save_link:hover',
+                       )
+               );
+
                 $next_button = '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_next_button';
 
                 $previous_button = '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_previous_button';
@@ -651,6 +659,7 @@ $sub_labels = implode(
                        Group_Control_Background::get_type(),
                        array(
                                'name'     => 'inputs_background',
+                               'label'    => __( 'Background', 'stoke-gf-elementor' ),
                                'selector' => $inputs,
                        )
                );
@@ -876,8 +885,9 @@ $textarea_placeholder_selectors => 'color: {{VALUE}};',
 $this->add_group_control(
 Group_Control_Background::get_type(),
 array(
-'name'     => 'textarea_background',
-'selector' => $textarea,
+       'name'     => 'textarea_background',
+       'label'    => __( 'Background', 'stoke-gf-elementor' ),
+       'selector' => $textarea,
 )
 );
 
@@ -943,34 +953,35 @@ $this->end_controls_section();
                         )
                 );
 
-                $this->add_control(
-                        'submit_button_hover_text_color',
-                        array(
-                                'label'     => __( 'Hover Text Color', 'stoke-gf-elementor' ),
-                                'type'      => Controls_Manager::COLOR,
-                                'selectors' => array(
-                                        str_replace( ', ', ':hover, ', $submit_button ) . ':hover' => 'color: {{VALUE}} !important;',
+               $this->add_control(
+                       'submit_button_hover_text_color',
+                       array(
+                               'label'     => __( 'Hover Text Color', 'stoke-gf-elementor' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       $submit_button_hover => 'color: {{VALUE}} !important;',
 
-                                ),
-                        )
-                );
+                               ),
+                       )
+               );
 
-                $this->add_group_control(
-                        Group_Control_Background::get_type(),
-                        array(
-                                'name'     => 'submit_button_background',
-                                'selector' => $submit_button,
-                        )
-                );
+               $this->add_group_control(
+                       Group_Control_Background::get_type(),
+                       array(
+                               'name'     => 'submit_button_background',
+                               'label'    => __( 'Background', 'stoke-gf-elementor' ),
+                               'selector' => $submit_button,
+                       )
+               );
 
-                $this->add_group_control(
-                        Group_Control_Background::get_type(),
-                        array(
-                                'name'     => 'submit_button_hover_background',
-                                'label'    => __( 'Hover Background', 'stoke-gf-elementor' ),
-                                'selector' => str_replace( ', ', ':hover, ', $submit_button ) . ':hover',
-                        )
-                );
+               $this->add_group_control(
+                       Group_Control_Background::get_type(),
+                       array(
+                               'name'     => 'submit_button_hover_background',
+                               'label'    => __( 'Hover Background', 'stoke-gf-elementor' ),
+                               'selector' => $submit_button_hover,
+                       )
+               );
 
                 $this->add_group_control(
                         Group_Control_Border::get_type(),
@@ -1047,13 +1058,14 @@ $this->end_controls_section();
                         )
                 );
 
-                $this->add_group_control(
-                        Group_Control_Background::get_type(),
-                        array(
-                                'name'     => 'next_button_background',
-                                'selector' => $next_button,
-                        )
-                );
+               $this->add_group_control(
+                       Group_Control_Background::get_type(),
+                       array(
+                               'name'     => 'next_button_background',
+                               'label'    => __( 'Background', 'stoke-gf-elementor' ),
+                               'selector' => $next_button,
+                       )
+               );
 
                 $this->add_group_control(
                         Group_Control_Background::get_type(),
@@ -1139,13 +1151,14 @@ $this->end_controls_section();
                         )
                 );
 
-                $this->add_group_control(
-                        Group_Control_Background::get_type(),
-                        array(
-                                'name'     => 'previous_button_background',
-                                'selector' => $previous_button,
-                        )
-                );
+               $this->add_group_control(
+                       Group_Control_Background::get_type(),
+                       array(
+                               'name'     => 'previous_button_background',
+                               'label'    => __( 'Background', 'stoke-gf-elementor' ),
+                               'selector' => $previous_button,
+                       )
+               );
 
                 $this->add_group_control(
                         Group_Control_Background::get_type(),
@@ -1219,13 +1232,14 @@ $this->end_controls_section();
 			),
 		);
 
-		$this->add_group_control(
-			Group_Control_Background::get_type(),
-			array(
-				'name'     => 'file_upload_background',
-				'selector' => $file_upload_button,
-			),
-		);
+               $this->add_group_control(
+                       Group_Control_Background::get_type(),
+                       array(
+                               'name'     => 'file_upload_background',
+                               'label'    => __( 'Background', 'stoke-gf-elementor' ),
+                               'selector' => $file_upload_button,
+                       ),
+               );
 
                $this->add_group_control(
                        Group_Control_Border::get_type(),
