@@ -96,3 +96,19 @@ add_action(
 		echo "<div class='error is-dismissible' style='padding: 1.25em 0 1.25em 1em;'>$notice</div>"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 );
+/**
+ * Enqueue frontend styles.
+ *
+ * @since 1.0.0
+ */
+function enqueue_frontend_styles() {
+        wp_enqueue_style(
+                'stoke-gf-elementor',
+                plugin_dir_url( __FILE__ ) . 'assets/forms.css',
+                array(),
+                '1.0.0'
+        );
+}
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_frontend_styles' );
+
+
