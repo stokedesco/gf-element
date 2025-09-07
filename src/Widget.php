@@ -16,7 +16,6 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Plugin;
 use Elementor\Widget_Base;
 use GFAPI;
-use GFSettings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -182,28 +181,6 @@ class Widget extends Widget_Base {
 			)
 		);
 
-		$default_theme = GFSettings::is_orbital_default()
-			? __( 'Orbital Theme', 'gk-gravity-forms-elementor-widget' )
-			: __( 'Gravity Forms 2.5 Theme', 'gk-gravity-forms-elementor-widget' );
-
-		$this->add_control(
-			'theme',
-			array(
-				'label'   => __( 'Theme', 'gk-gravity-forms-elementor-widget' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => array(
-					// translators: Do not translate placeholders in square brackets. They are placeholders.
-					''              => strtr(
-						__( 'Inherit from default [theme]', 'gk-gravity-forms-elementor-widget' ),
-						array( '[theme]' => $default_theme )
-					),
-					'orbital'       => __( 'Orbital Theme', 'gk-gravity-forms-elementor-widget' ),
-					'gravity-theme' => __( 'Gravity Forms 2.5 Theme', 'gk-gravity-forms-elementor-widget' ),
-					'disable'       => __( 'Disable Theme', 'gk-gravity-forms-elementor-widget' ),
-				),
-				'default' => '',
-			)
-		);
 
 		$this->end_controls_section();
 
@@ -416,18 +393,11 @@ class Widget extends Widget_Base {
 			return;
 		}
 
-		$title       = 'yes' === $settings['title'];
-		$description = 'yes' === $settings['description'];
-		$tabindex    = (int) $settings['tabindex'];
-		$theme_slug  = isset( $settings['theme'] ) ? esc_html( $settings['theme'] ) : '';
+                $title       = 'yes' === $settings['title'];
+                $description = 'yes' === $settings['description'];
+                $tabindex    = (int) $settings['tabindex'];
 
-		// If the theme is not set, it means we should use the default theme.
-		// Only rely on methods added in 2.7.15.
-		if ( empty( $theme_slug ) ) {
-			$theme_slug = GFSettings::is_orbital_default() ? 'orbital' : 'gravity-theme';
-		}
-
-		$field_values = null;
+                $field_values = null;
 
 		if ( ! empty( $settings['field_values'] ) ) {
 			$field_values = array();
@@ -437,64 +407,23 @@ class Widget extends Widget_Base {
 			$field_values = array_map( 'esc_html', $field_values );
 		}
 
-		$ajax = 'yes' === $settings['ajax'];
+                $ajax = 'yes' === $settings['ajax'];
 
-		if ( Plugin::$instance->editor->is_edit_mode() ) {
-			$ajax = true; // Force-enable Ajax in the editor to prevent JS errors, caused in part by the $form_scripts_body contents.
+                if ( Plugin::$instance->editor->is_edit_mode() ) {
+                        $ajax = true; // Force-enable Ajax in the editor to prevent JS errors, caused in part by the $form_scripts_body contents.
+                }
 
-			add_action(
-                'gform_enqueue_scripts',
-                function ( $form ) use ( $theme_slug ) {
-					add_filter(
-                        'gform_form_theme_slug',
-                        function ( $slug, $form ) use ( $theme_slug ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-                            return $theme_slug;
-                        },
-                        10,
-                        2
-					);
+                $this->add_render_attribute( self::ELEMENT_KEY, 'class', self::ELEMENT_KEY );
 
-					// Enqueue the theme styles. This is a workaround that is much simpler than using the containers and service providers.
-					switch ( $theme_slug ) {
-						case 'orbital':
-						default:
-							wp_print_styles( 'gravity_forms_orbital_theme' );
-							break;
-						case 'gravity-theme':
-							wp_print_styles( array( 'gform_theme', 'gform_basic' ) );
-							break;
-						case 'disable':
-							break;
-					}
-				},
-                1000
-            );
-		}
-
-		$this->add_render_attribute( self::ELEMENT_KEY, 'class', self::ELEMENT_KEY );
-
-		if ( 'disable' === $theme_slug ) {
-			add_filter(
-                'gform_disable_form_theme_css',
-                $disable_theme_css = function () {
-					return true;
-				}
-            );
-		}
-
-		$template = strtr(
+                $template = strtr(
             '<div {attribute}>{form}</div>',
             array(
-				'{attribute}' => $this->get_render_attribute_string( self::ELEMENT_KEY ),
-				'{form}'      => gravity_form( $form_id, $title, $description, false, $field_values, $ajax, $tabindex, false, $theme_slug ),
-			)
+                                '{attribute}' => $this->get_render_attribute_string( self::ELEMENT_KEY ),
+                                '{form}'      => gravity_form( $form_id, $title, $description, false, $field_values, $ajax, $tabindex, false ),
+                        )
         );
 
-		echo $template; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
-		if ( 'disable' === $theme_slug ) {
-			remove_filter( 'gform_disable_form_theme_css', $disable_theme_css );
-		}
+                echo $template; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
