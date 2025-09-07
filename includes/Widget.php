@@ -205,6 +205,13 @@ $checks_radios_labels = implode(
                 '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio label',
         )
 );
+$sub_labels = implode(
+       ', ',
+       array(
+               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_complex label',
+               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield_list th',
+       )
+);
                 $file_upload_button = implode(
                         ', ',
                         array(
@@ -548,6 +555,48 @@ $checks_radios_labels = implode(
                                'type'      => Controls_Manager::COLOR,
                                'selectors' => array(
                                        '{{WRAPPER}} .sge-gravity-form .gfield_required' => 'color: {{VALUE}};',
+                               ),
+                       )
+               );
+
+               $this->add_control(
+                       'sub_label_heading',
+                       array(
+                               'label'     => __( 'Sub Labels', 'stoke-gf-elementor' ),
+                               'type'      => Controls_Manager::HEADING,
+                               'separator' => 'before',
+                       )
+               );
+
+               $this->add_responsive_control(
+                       'sub_label_font_size',
+                       array(
+                               'label'      => __( 'Font Size', 'stoke-gf-elementor' ),
+                               'type'       => Controls_Manager::SLIDER,
+                               'size_units' => array( 'px', 'em' ),
+                               'range'      => array(
+                                       'px' => array(
+                                               'min' => 0,
+                                               'max' => 100,
+                                       ),
+                                       'em' => array(
+                                               'min' => 0,
+                                               'max' => 10,
+                                       ),
+                               ),
+                               'selectors'  => array(
+                                       $sub_labels => 'font-size: {{SIZE}}{{UNIT}};',
+                               ),
+                       )
+               );
+
+               $this->add_control(
+                       'sub_label_color',
+                       array(
+                               'label'     => __( 'Text Color', 'stoke-gf-elementor' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       $sub_labels => 'color: {{VALUE}};',
                                ),
                        )
                );
@@ -1002,13 +1051,13 @@ $this->end_controls_section();
 			),
 		);
 
-                $this->add_group_control(
-                        Group_Control_Border::get_type(),
-                        array(
-                                'name'     => 'file_upload_border',
-                                'selector' => $file_upload_button,
-                        ),
-                );
+               $this->add_group_control(
+                       Group_Control_Border::get_type(),
+                       array(
+                               'name'     => 'file_upload_border',
+                               'selector' => $file_upload_button,
+                       ),
+               );
 
                $this->add_responsive_control(
                        'file_upload_border_radius',
@@ -1018,6 +1067,18 @@ $this->end_controls_section();
                                'size_units' => array( 'px', 'em', '%' ),
                                'selectors'  => array(
                                        $file_upload_button => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                               ),
+                       )
+               );
+
+               $this->add_responsive_control(
+                       'file_upload_padding',
+                       array(
+                               'label'      => __( 'Padding', 'stoke-gf-elementor' ),
+                               'type'       => Controls_Manager::DIMENSIONS,
+                               'size_units' => array( 'px', 'em', '%' ),
+                               'selectors'  => array(
+                                       $file_upload_button => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                                ),
                        )
                );
