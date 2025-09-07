@@ -3,7 +3,7 @@
  * Plugin Name:         Stoke GF Elementor
  * Plugin URI:          https://stokedesign.co/sandbox
  * Description:         Allows Gravity forms to easily be inserted and styled in Elementor.
- * Version:             1.0.0
+ * Version:             1.2.0
  * Author:              Stoke Design Co
  * Author URI:          https://stokedesign.co/
  * Text Domain:         stoke-gf-elementor
@@ -17,8 +17,10 @@ namespace StokeGFElementor;
 use GFCommon;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+        exit; // Exit if accessed directly.
 }
+
+require_once plugin_dir_path( __FILE__ ) . 'includes/FieldShortcodes.php';
 
 const MIN_GF_VERSION = '2.7.15';
 
