@@ -156,53 +156,54 @@ $checks_radios = implode(
         )
 );
 
-// Pseudo element selectors for custom checkboxes and radios.
+// Pseudo-element selectors using the label for custom checkboxes and radios.
 $checks_radios_before = implode(
         ', ',
         array(
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]::before',
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]::before',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"] + label::before',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"] + label::before',
         )
 );
 
 $checks_radios_checked_before = implode(
         ', ',
         array(
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]:checked::before',
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]:checked::before',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]:checked + label::before',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]:checked + label::before',
         )
 );
 
 $checks_radios_unchecked_before = implode(
         ', ',
         array(
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]:not(:checked)::before',
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]:not(:checked)::before',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]:not(:checked) + label::before',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]:not(:checked) + label::before',
         )
 );
 
+// Checked and unchecked selectors for text color adjustments.
 $checks_radios_checked = implode(
         ', ',
         array(
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]:checked',
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]:checked',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]:checked + label',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]:checked + label',
         )
 );
 
 $checks_radios_unchecked = implode(
         ', ',
         array(
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]:not(:checked)',
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]:not(:checked)',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]:not(:checked) + label',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]:not(:checked) + label',
         )
 );
 
 $checks_radios_labels = implode(
         ', ',
         array(
-'{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox label',
-'{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio label',
-)
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox label',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio label',
+        )
 );
                 $file_upload_button = implode(
                         ', ',
@@ -659,8 +660,9 @@ $this->end_controls_section();
                                 array(
                                         'type'      => Controls_Manager::HIDDEN,
                                         'selectors' => array(
-                                                $checks_radios => 'appearance: none; -webkit-appearance: none; position: relative;',
-                                                $checks_radios_before => 'content: ""; display: inline-block; width: 1em; height: 1em;',
+                                                $checks_radios       => 'opacity: 0; position: absolute;',
+                                                $checks_radios_labels => 'position: relative; display: inline-block; padding-left: 1.5em;',
+                                                $checks_radios_before => 'content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 1em; height: 1em;',
                                         ),
                                 )
                         );
@@ -672,8 +674,6 @@ $this->end_controls_section();
                                         'label'     => __( 'Accent Color', 'stoke-gf-elementor' ),
                                         'type'      => Controls_Manager::COLOR,
                                         'selectors' => array(
-                                                $checks_radios_unchecked => 'accent-color: {{VALUE}};',
-                                                $checks_radios_checked   => 'accent-color: {{VALUE}};',
                                                 $checks_radios_checked_before => 'background-color: {{VALUE}}; border-color: {{VALUE}};',
                                         ),
                                 )
@@ -703,7 +703,7 @@ $this->end_controls_section();
                                         'label'     => __( 'Inactive Color', 'stoke-gf-elementor' ),
                                         'type'      => Controls_Manager::COLOR,
                                         'selectors' => array(
-                                                $checks_radios_unchecked => 'color: {{VALUE}}; accent-color: {{VALUE}};',
+                                                $checks_radios_unchecked       => 'color: {{VALUE}};',
                                                 $checks_radios_unchecked_before => 'border-color: {{VALUE}};',
                                         ),
                                 )
@@ -734,7 +734,7 @@ $this->end_controls_section();
                                         'label'     => __( 'Active Color', 'stoke-gf-elementor' ),
                                         'type'      => Controls_Manager::COLOR,
                                         'selectors' => array(
-                                                $checks_radios_checked => 'color: {{VALUE}}; accent-color: {{VALUE}};',
+                                                $checks_radios_checked       => 'color: {{VALUE}};',
                                                 $checks_radios_checked_before => 'border-color: {{VALUE}};',
                                         ),
                                 )
@@ -787,9 +787,9 @@ $this->end_controls_section();
 			'max' => 5,
 			),
 			),
-			'selectors'  => array(
-			$checks_radios_labels => 'margin-left: {{SIZE}}{{UNIT}};',
-			),
+                        'selectors'  => array(
+                        $checks_radios_labels => 'padding-left: {{SIZE}}{{UNIT}};',
+                        ),
 			)
 			);
 			
@@ -1177,8 +1177,8 @@ $this->end_controls_section();
 					)
                 );
 
-				echo $template; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			}
+                echo $template; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        }
 
 			return;
 		}
@@ -1202,16 +1202,33 @@ $this->end_controls_section();
 
                 $this->add_render_attribute( self::ELEMENT_KEY, 'class', 'sge-gravity-form' );
 
-                $template = strtr(
-            '<div {attribute}>{form}</div>',
-            array(
-                               '{attribute}' => $this->get_render_attribute_string( self::ELEMENT_KEY ),
-                               '{form}'      => gravity_form( $form_id, $title, $description, false, null, $ajax, 0, false ),
-                       )
-       );
+               $template = strtr(
+           '<div {attribute}>{form}</div>',
+           array(
+                              '{attribute}' => $this->get_render_attribute_string( self::ELEMENT_KEY ),
+                              '{form}'      => gravity_form( $form_id, $title, $description, false, null, $ajax, 0, false ),
+                      )
+      );
 
                 echo $template; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-	}
+                ?>
+                <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                        document.querySelectorAll('.sge-gravity-form .ginput_container_checkbox li, .sge-gravity-form .ginput_container_radio li').forEach(function(choice) {
+                                var input = choice.querySelector('input[type="checkbox"], input[type="radio"]');
+                                var label = choice.querySelector('label');
+                                if (input && label && !label.previousElementSibling) {
+                                        var wrapper = document.createElement('span');
+                                        wrapper.className = 'sge-choice-wrapper';
+                                        choice.insertBefore(wrapper, input);
+                                        wrapper.appendChild(input);
+                                        wrapper.appendChild(label);
+                                }
+                        });
+                });
+                </script>
+                <?php
+        }
 
 	/**
 	 * Returns a list of Gravity Forms forms.
