@@ -277,23 +277,28 @@ class FieldShortcodes {
                     </tbody>
                 </table>
                 <?php
-                $parts      = [];
+                $form_parts = [];
                 $shortcodes = [];
                 foreach ( $mappings as $m ) {
-                    $f = isset( $m['form_id'] ) ? (int) $m['form_id'] : 0;
+                    $f   = isset( $m['form_id'] ) ? (int) $m['form_id'] : 0;
                     $fld = isset( $m['field_id'] ) ? (string) $m['field_id'] : '';
                     if ( $f && '' !== $fld ) {
-                        $parts[] = sprintf( 'f%d_%s={Field:%s}', $f, $fld, $fld );
+                        $form_parts[ $f ][] = sprintf( 'f%d_%s={Field:%s}', $f, $fld, $fld );
                     }
                     if ( ! empty( $m['tag'] ) ) {
                         $shortcodes[] = '[' . preg_replace( '/[^A-Za-z0-9_]/', '', $m['tag'] ) . ']';
                     }
                 }
-                $preview    = '?eid={entry_id}' . ( $parts ? '&' . implode( '&', $parts ) : '' );
                 $sc_display = implode( ' ', $shortcodes );
                 ?>
-                <p id="stkc-gf-sc-example" class="description"><code><?php echo esc_html( $preview ); ?></code> <button type="button" class="button button-small stkc-copy" data-copy="<?php echo esc_attr( $preview ); ?>"><?php esc_html_e( 'Copy', 'stoke-gf-elementor' ); ?></button></p>
-                <p class="description"><?php esc_html_e( 'Copy this query and add it to the end of your confirmation page URL.', 'stoke-gf-elementor' ); ?></p>
+                <div id="stkc-gf-sc-example">
+                    <?php foreach ( $form_parts as $fid => $parts ) :
+                        $preview = '?eid={entry_id}' . ( $parts ? '&' . implode( '&', $parts ) : '' );
+                        ?>
+                        <p class="description"><code><?php echo esc_html( $preview ); ?></code> <button type="button" class="button button-small stkc-copy" data-copy="<?php echo esc_attr( $preview ); ?>"><?php esc_html_e( 'Copy', 'stoke-gf-elementor' ); ?></button></p>
+                    <?php endforeach; ?>
+                </div>
+                <p class="description"><?php esc_html_e( 'Copy each query and add it to the end of your confirmation page URL.', 'stoke-gf-elementor' ); ?></p>
                 <p class="description"><?php esc_html_e( 'Use these shortcodes in your confirmation page to display the submitted values:', 'stoke-gf-elementor' ); ?> <span id="stkc-gf-sc-shortcodes"><?php echo esc_html( $sc_display ); ?></span></p>
                 <p><button type="button" class="button stkc-add-row"><?php esc_html_e( 'Add Mapping', 'stoke-gf-elementor' ); ?></button></p>
                 <?php submit_button(); ?>
