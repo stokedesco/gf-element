@@ -965,21 +965,27 @@ $this->end_controls_section();
                        )
                );
 
-               $this->add_group_control(
-                       Group_Control_Background::get_type(),
+               $this->add_control(
+                       'submit_button_background_color',
                        array(
-                               'name'     => 'submit_button_background',
-                               'label'    => __( 'Background', 'stoke-gf-elementor' ),
-                               'selector' => $submit_button,
+                               'label'     => __( 'Background Color', 'stoke-gf-elementor' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       $submit_button => 'background-color: {{VALUE}} !important;',
+
+                               ),
                        )
                );
 
-               $this->add_group_control(
-                       Group_Control_Background::get_type(),
+               $this->add_control(
+                       'submit_button_hover_background_color',
                        array(
-                               'name'     => 'submit_button_hover_background',
-                               'label'    => __( 'Hover Background', 'stoke-gf-elementor' ),
-                               'selector' => $submit_button_hover,
+                               'label'     => __( 'Hover Background Color', 'stoke-gf-elementor' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       $submit_button_hover => 'background-color: {{VALUE}} !important;',
+
+                               ),
                        )
                );
 
@@ -1058,23 +1064,29 @@ $this->end_controls_section();
                         )
                 );
 
-               $this->add_group_control(
-                       Group_Control_Background::get_type(),
+               $this->add_control(
+                       'next_button_background_color',
                        array(
-                               'name'     => 'next_button_background',
-                               'label'    => __( 'Background', 'stoke-gf-elementor' ),
-                               'selector' => $next_button,
+                               'label'     => __( 'Background Color', 'stoke-gf-elementor' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       $next_button => 'background-color: {{VALUE}} !important;',
+
+                               ),
                        )
                );
 
-                $this->add_group_control(
-                        Group_Control_Background::get_type(),
-                        array(
-                                'name'     => 'next_button_hover_background',
-                                'label'    => __( 'Hover Background', 'stoke-gf-elementor' ),
-                                'selector' => $next_button . ':hover',
-                        )
-                );
+               $this->add_control(
+                       'next_button_hover_background_color',
+                       array(
+                               'label'     => __( 'Hover Background Color', 'stoke-gf-elementor' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       $next_button . ':hover' => 'background-color: {{VALUE}} !important;',
+
+                               ),
+                       )
+               );
 
                 $this->add_group_control(
                         Group_Control_Border::get_type(),
@@ -1151,23 +1163,29 @@ $this->end_controls_section();
                         )
                 );
 
-               $this->add_group_control(
-                       Group_Control_Background::get_type(),
+               $this->add_control(
+                       'previous_button_background_color',
                        array(
-                               'name'     => 'previous_button_background',
-                               'label'    => __( 'Background', 'stoke-gf-elementor' ),
-                               'selector' => $previous_button,
+                               'label'     => __( 'Background Color', 'stoke-gf-elementor' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       $previous_button => 'background-color: {{VALUE}} !important;',
+
+                               ),
                        )
                );
 
-                $this->add_group_control(
-                        Group_Control_Background::get_type(),
-                        array(
-                                'name'     => 'previous_button_hover_background',
-                                'label'    => __( 'Hover Background', 'stoke-gf-elementor' ),
-                                'selector' => $previous_button . ':hover',
-                        )
-                );
+               $this->add_control(
+                       'previous_button_hover_background_color',
+                       array(
+                               'label'     => __( 'Hover Background Color', 'stoke-gf-elementor' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       $previous_button . ':hover' => 'background-color: {{VALUE}} !important;',
+
+                               ),
+                       )
+               );
 
                 $this->add_group_control(
                         Group_Control_Border::get_type(),
