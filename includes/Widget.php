@@ -156,6 +156,31 @@ $checks_radios = implode(
         )
 );
 
+// Pseudo element selectors for custom checkboxes and radios.
+$checks_radios_before = implode(
+        ', ',
+        array(
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]::before',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]::before',
+        )
+);
+
+$checks_radios_checked_before = implode(
+        ', ',
+        array(
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]:checked::before',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]:checked::before',
+        )
+);
+
+$checks_radios_unchecked_before = implode(
+        ', ',
+        array(
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]:not(:checked)::before',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]:not(:checked)::before',
+        )
+);
+
 $checks_radios_checked = implode(
         ', ',
         array(
@@ -620,84 +645,112 @@ $inputs => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT
 
 $this->end_controls_section();
 
-			$this->start_controls_section(
-			'section_checks_radios',
-			array(
-			'label' => __( 'Checkboxes & Radios', 'stoke-gf-elementor' ),
-			'tab'   => Controls_Manager::TAB_STYLE,
-			)
-			);
-			$this->add_group_control(
-			        Group_Control_Border::get_type(),
-			        array(
-			                'name'     => 'checks_radios_inactive_border',
-			                'selector' => $checks_radios_unchecked,
-			        )
-			);
+                        $this->start_controls_section(
+                        'section_checks_radios',
+                        array(
+                        'label' => __( 'Checkboxes & Radios', 'stoke-gf-elementor' ),
+                        'tab'   => Controls_Manager::TAB_STYLE,
+                        )
+                        );
+
+                        // Remove default appearance and create pseudo elements.
+                        $this->add_control(
+                                'checks_radios_reset_native',
+                                array(
+                                        'type'      => Controls_Manager::HIDDEN,
+                                        'selectors' => array(
+                                                $checks_radios => 'appearance: none; -webkit-appearance: none; position: relative;',
+                                                $checks_radios_before => 'content: ""; display: inline-block; width: 1em; height: 1em;',
+                                        ),
+                                )
+                        );
+
+                        // Accent color control for check mark / selection.
+                        $this->add_control(
+                                'checks_radios_accent_color',
+                                array(
+                                        'label'     => __( 'Accent Color', 'stoke-gf-elementor' ),
+                                        'type'      => Controls_Manager::COLOR,
+                                        'selectors' => array(
+                                                $checks_radios_unchecked => 'accent-color: {{VALUE}};',
+                                                $checks_radios_checked   => 'accent-color: {{VALUE}};',
+                                                $checks_radios_checked_before => 'background-color: {{VALUE}}; border-color: {{VALUE}};',
+                                        ),
+                                )
+                        );
+                        $this->add_group_control(
+                                Group_Control_Border::get_type(),
+                                array(
+                                        'name'     => 'checks_radios_inactive_border',
+                                        'selector' => $checks_radios_unchecked_before,
+                                )
+                        );
+
+                        $this->add_control(
+                                'checks_radios_inactive_background_color',
+                                array(
+                                        'label'     => __( 'Inactive Background Color', 'stoke-gf-elementor' ),
+                                        'type'      => Controls_Manager::COLOR,
+                                        'selectors' => array(
+                                                $checks_radios_unchecked_before => 'background-color: {{VALUE}};',
+                                        ),
+                                )
+                        );
+
+                        $this->add_control(
+                                'checks_radios_inactive_color',
+                                array(
+                                        'label'     => __( 'Inactive Color', 'stoke-gf-elementor' ),
+                                        'type'      => Controls_Manager::COLOR,
+                                        'selectors' => array(
+                                                $checks_radios_unchecked => 'color: {{VALUE}}; accent-color: {{VALUE}};',
+                                                $checks_radios_unchecked_before => 'border-color: {{VALUE}};',
+                                        ),
+                                )
+                        );
+
+                        $this->add_group_control(
+                                Group_Control_Border::get_type(),
+                                array(
+                                        'name'     => 'checks_radios_active_border',
+                                        'selector' => $checks_radios_checked_before,
+                                )
+                        );
+
+                        $this->add_control(
+                                'checks_radios_active_background_color',
+                                array(
+                                        'label'     => __( 'Active Background Color', 'stoke-gf-elementor' ),
+                                        'type'      => Controls_Manager::COLOR,
+                                        'selectors' => array(
+                                                $checks_radios_checked_before => 'background-color: {{VALUE}};',
+                                        ),
+                                )
+                        );
+
+                        $this->add_control(
+                                'checks_radios_active_color',
+                                array(
+                                        'label'     => __( 'Active Color', 'stoke-gf-elementor' ),
+                                        'type'      => Controls_Manager::COLOR,
+                                        'selectors' => array(
+                                                $checks_radios_checked => 'color: {{VALUE}}; accent-color: {{VALUE}};',
+                                                $checks_radios_checked_before => 'border-color: {{VALUE}};',
+                                        ),
+                                )
+                        );
 			
-			$this->add_control(
-			        'checks_radios_inactive_background_color',
-			        array(
-			                'label'     => __( 'Inactive Background Color', 'stoke-gf-elementor' ),
-			                'type'      => Controls_Manager::COLOR,
-			                'selectors' => array(
-			                        $checks_radios_unchecked => 'background-color: {{VALUE}};',
-			                ),
-			        )
-			);
-			
-			$this->add_control(
-			        'checks_radios_inactive_color',
-			        array(
-			                'label'     => __( 'Inactive Color', 'stoke-gf-elementor' ),
-			                'type'      => Controls_Manager::COLOR,
-			                'selectors' => array(
-			                        $checks_radios_unchecked => 'color: {{VALUE}};',
-			                ),
-			        )
-			);
-			
-			$this->add_group_control(
-			        Group_Control_Border::get_type(),
-			        array(
-			                'name'     => 'checks_radios_active_border',
-			                'selector' => $checks_radios_checked,
-			        )
-			);
-			
-			$this->add_control(
-			        'checks_radios_active_background_color',
-			        array(
-			                'label'     => __( 'Active Background Color', 'stoke-gf-elementor' ),
-			                'type'      => Controls_Manager::COLOR,
-			                'selectors' => array(
-			                        $checks_radios_checked => 'background-color: {{VALUE}};',
-			                ),
-			        )
-			);
-			
-			$this->add_control(
-			        'checks_radios_active_color',
-			        array(
-			                'label'     => __( 'Active Color', 'stoke-gf-elementor' ),
-			                'type'      => Controls_Manager::COLOR,
-			                'selectors' => array(
-			                        $checks_radios_checked => 'color: {{VALUE}};',
-			                ),
-			        )
-			);
-			
-			$this->add_responsive_control(
-			        'checks_radios_border_radius',
-			        array(
-			                'label'      => __( 'Border Radius', 'stoke-gf-elementor' ),
-			                'type'       => Controls_Manager::DIMENSIONS,
-			                'size_units' => array( 'px', 'em', '%' ),
-			                'selectors'  => array(
-			                        $checks_radios => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-			                ),
-			        )
-			);
+                        $this->add_responsive_control(
+                                'checks_radios_border_radius',
+                                array(
+                                        'label'      => __( 'Border Radius', 'stoke-gf-elementor' ),
+                                        'type'       => Controls_Manager::DIMENSIONS,
+                                        'size_units' => array( 'px', 'em', '%' ),
+                                        'selectors'  => array(
+                                                $checks_radios_before => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                                        ),
+                                )
+                        );
 			
 			$this->add_group_control(
 			Group_Control_Typography::get_type(),
