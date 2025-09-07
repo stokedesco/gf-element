@@ -123,6 +123,14 @@
     outline: none;
 }
 
+/* Button hover state */
+.sge-gravity-form .gform_button:hover,
+.sge-gravity-form .gform_save_link:hover,
+.sge-gravity-form .gform_next_button:hover,
+.sge-gravity-form .gform_previous_button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
 /* Remove system selection highlight when typing */
 .sge-gravity-form input::selection,
 .sge-gravity-form input::-moz-selection,
@@ -157,7 +165,7 @@
 .sge-gravity-form .ginput_container_radio label {
     position: relative;
     display: inline-block;
-    padding-left: 1.5em;
+    padding-left: 0;
     cursor: pointer;
 }
 
