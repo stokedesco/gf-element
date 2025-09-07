@@ -197,6 +197,12 @@ $checks_radios_labels = implode(
                 '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio label',
         )
 );
+
+// Selectors for the consent field's checkbox and label.
+$consent_before = '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_consent input[type="checkbox"] + label::before';
+$consent_checked_before = '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_consent input[type="checkbox"]:checked + label::before';
+$consent_unchecked_before = '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_consent input[type="checkbox"]:not(:checked) + label::before';
+$consent_labels = '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_consent label';
 $sub_labels = implode(
        ', ',
        array(
@@ -830,15 +836,150 @@ $this->end_controls_section();
 			)
 			);
 			
-			$this->end_controls_section();
+                        $this->end_controls_section();
 
-$this->start_controls_section(
-'section_textarea',
-array(
-'label' => __( 'Textarea', 'stoke-gf-elementor' ),
-'tab'   => Controls_Manager::TAB_STYLE,
-)
-);
+                        // Consent field styles.
+                        $this->start_controls_section(
+                                'section_consent',
+                                array(
+                                        'label' => __( 'Consent', 'stoke-gf-elementor' ),
+                                        'tab'   => Controls_Manager::TAB_STYLE,
+                                )
+                        );
+
+                        $this->add_control(
+                                'consent_accent_color',
+                                array(
+                                        'label'     => __( 'Accent Color', 'stoke-gf-elementor' ),
+                                        'type'      => Controls_Manager::COLOR,
+                                        'selectors' => array(
+                                                $consent_checked_before => 'background-color: {{VALUE}}; border-color: {{VALUE}};',
+                                        ),
+                                )
+                        );
+
+                        $this->add_group_control(
+                                Group_Control_Border::get_type(),
+                                array(
+                                        'name'     => 'consent_inactive_border',
+                                        'selector' => $consent_unchecked_before,
+                                )
+                        );
+
+                        $this->add_control(
+                                'consent_inactive_background_color',
+                                array(
+                                        'label'     => __( 'Inactive Background Color', 'stoke-gf-elementor' ),
+                                        'type'      => Controls_Manager::COLOR,
+                                        'selectors' => array(
+                                                $consent_unchecked_before => 'background-color: {{VALUE}};',
+                                        ),
+                                )
+                        );
+
+                        $this->add_control(
+                                'consent_inactive_color',
+                                array(
+                                        'label'     => __( 'Inactive Border Color', 'stoke-gf-elementor' ),
+                                        'type'      => Controls_Manager::COLOR,
+                                        'selectors' => array(
+                                                $consent_unchecked_before => 'border-color: {{VALUE}};',
+                                        ),
+                                )
+                        );
+
+                        $this->add_group_control(
+                                Group_Control_Border::get_type(),
+                                array(
+                                        'name'     => 'consent_active_border',
+                                        'selector' => $consent_checked_before,
+                                )
+                        );
+
+                        $this->add_control(
+                                'consent_active_background_color',
+                                array(
+                                        'label'     => __( 'Active Background Color', 'stoke-gf-elementor' ),
+                                        'type'      => Controls_Manager::COLOR,
+                                        'selectors' => array(
+                                                $consent_checked_before => 'background-color: {{VALUE}};',
+                                        ),
+                                )
+                        );
+
+                        $this->add_control(
+                                'consent_active_color',
+                                array(
+                                        'label'     => __( 'Active Border Color', 'stoke-gf-elementor' ),
+                                        'type'      => Controls_Manager::COLOR,
+                                        'selectors' => array(
+                                                $consent_checked_before => 'border-color: {{VALUE}};',
+                                        ),
+                                )
+                        );
+
+                        $this->add_responsive_control(
+                                'consent_border_radius',
+                                array(
+                                        'label'      => __( 'Border Radius', 'stoke-gf-elementor' ),
+                                        'type'       => Controls_Manager::DIMENSIONS,
+                                        'size_units' => array( 'px', 'em', '%' ),
+                                        'selectors'  => array(
+                                                $consent_before => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                                        ),
+                                )
+                        );
+
+                        $this->add_group_control(
+                                Group_Control_Typography::get_type(),
+                                array(
+                                        'name'     => 'consent_label_typography',
+                                        'selector' => $consent_labels,
+                                )
+                        );
+
+                        $this->add_control(
+                                'consent_label_color',
+                                array(
+                                        'label'     => __( 'Label Text Color', 'stoke-gf-elementor' ),
+                                        'type'      => Controls_Manager::COLOR,
+                                        'selectors' => array(
+                                                $consent_labels => 'color: {{VALUE}} !important;',
+                                        ),
+                                )
+                        );
+
+                        $this->add_responsive_control(
+                                'consent_label_spacing',
+                                array(
+                                        'label'      => __( 'Label Spacing', 'stoke-gf-elementor' ),
+                                        'type'       => Controls_Manager::SLIDER,
+                                        'size_units' => array( 'px', 'em' ),
+                                        'range'      => array(
+                                                'px' => array(
+                                                        'min' => 0,
+                                                        'max' => 50,
+                                                ),
+                                                'em' => array(
+                                                        'min' => 0,
+                                                        'max' => 5,
+                                                ),
+                                        ),
+                                        'selectors'  => array(
+                                                $consent_labels => 'padding-left: {{SIZE}}{{UNIT}} !important;',
+                                        ),
+                                )
+                        );
+
+                        $this->end_controls_section();
+
+                        $this->start_controls_section(
+                        'section_textarea',
+                        array(
+                        'label' => __( 'Textarea', 'stoke-gf-elementor' ),
+                        'tab'   => Controls_Manager::TAB_STYLE,
+                        )
+                        );
 
 $this->add_group_control(
 Group_Control_Typography::get_type(),

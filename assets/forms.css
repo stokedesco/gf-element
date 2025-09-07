@@ -148,13 +148,15 @@
 }
 
 .sge-gravity-form .ginput_container_checkbox input[type="checkbox"],
-.sge-gravity-form .ginput_container_radio input[type="radio"] {
+.sge-gravity-form .ginput_container_radio input[type="radio"],
+.sge-gravity-form .ginput_container_consent input[type="checkbox"] {
     position: absolute;
     opacity: 0;
 }
 
 .sge-gravity-form .ginput_container_checkbox label,
-.sge-gravity-form .ginput_container_radio label {
+.sge-gravity-form .ginput_container_radio label,
+.sge-gravity-form .ginput_container_consent label {
     position: relative;
     display: inline-block;
     padding-left: 1.5em;
@@ -163,7 +165,8 @@
 }
 
 .sge-gravity-form .ginput_container_checkbox input[type="checkbox"] + label::before,
-.sge-gravity-form .ginput_container_radio input[type="radio"] + label::before {
+.sge-gravity-form .ginput_container_radio input[type="radio"] + label::before,
+.sge-gravity-form .ginput_container_consent input[type="checkbox"] + label::before {
     content: "";
     position: absolute;
     left: 0;
@@ -175,7 +178,8 @@
     background: transparent;
 }
 
-.sge-gravity-form .ginput_container_checkbox input[type="checkbox"] + label::before {
+.sge-gravity-form .ginput_container_checkbox input[type="checkbox"] + label::before,
+.sge-gravity-form .ginput_container_consent input[type="checkbox"] + label::before {
     border-radius: 2px;
 }
 
@@ -184,6 +188,7 @@
 }
 
 .sge-gravity-form .ginput_container_checkbox input[type="checkbox"]:checked + label::before,
-.sge-gravity-form .ginput_container_radio input[type="radio"]:checked + label::before {
+.sge-gravity-form .ginput_container_radio input[type="radio"]:checked + label::before,
+.sge-gravity-form .ginput_container_consent input[type="checkbox"]:checked + label::before {
     background: currentColor;
 }
