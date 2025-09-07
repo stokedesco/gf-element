@@ -1,7 +1,11 @@
 /* Styling adjustments for Stoke Gravity Forms for Elementor fields */
 .sge-gravity-form input:not([type="checkbox"]):not([type="radio"]),
 .sge-gravity-form select,
-.sge-gravity-form textarea {
+.sge-gravity-form textarea,
+.sge-gravity-form .gform_button,
+.sge-gravity-form .gform_next_button,
+.sge-gravity-form .gform_previous_button,
+.sge-gravity-form .gform_save_link {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -14,7 +18,76 @@
 
 .sge-gravity-form input:not([type="checkbox"]):not([type="radio"]):focus,
 .sge-gravity-form select:focus,
-.sge-gravity-form textarea:focus {
+.sge-gravity-form textarea:focus,
+.sge-gravity-form .gform_button:focus,
+.sge-gravity-form .gform_next_button:focus,
+.sge-gravity-form .gform_previous_button:focus,
+.sge-gravity-form .gform_save_link:focus {
+    box-shadow: none !important;
+    outline: none !important;
+    -webkit-box-shadow: none !important;
+    border-color: inherit !important;
+    box-shadow: none;
+    outline: none;
+}
+
+/* Submit button */
+.sge-gravity-form .gform_button,
+.sge-gravity-form .gform_save_link {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: none !important;
+    outline: none !important;
+    -webkit-box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: none;
+}
+
+.sge-gravity-form .gform_button:focus,
+.sge-gravity-form .gform_save_link:focus {
+    box-shadow: none !important;
+    outline: none !important;
+    -webkit-box-shadow: none !important;
+    border-color: inherit !important;
+    box-shadow: none;
+    outline: none;
+}
+
+/* Next button */
+.sge-gravity-form .gform_next_button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: none !important;
+    outline: none !important;
+    -webkit-box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: none;
+}
+
+.sge-gravity-form .gform_next_button:focus {
+    box-shadow: none !important;
+    outline: none !important;
+    -webkit-box-shadow: none !important;
+    border-color: inherit !important;
+    box-shadow: none;
+    outline: none;
+}
+
+/* Previous button */
+.sge-gravity-form .gform_previous_button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: none !important;
+    outline: none !important;
+    -webkit-box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: none;
+}
+
+.sge-gravity-form .gform_previous_button:focus {
     box-shadow: none !important;
     outline: none !important;
     -webkit-box-shadow: none !important;
@@ -71,6 +144,7 @@
 .sge-gravity-form .ginput_container_radio label {
     position: relative;
     display: inline-block;
+    padding-left: 0px;
     cursor: pointer;
 }
 

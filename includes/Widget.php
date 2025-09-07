@@ -938,6 +938,7 @@ $this->end_controls_section();
                                 'type'      => Controls_Manager::COLOR,
                                 'selectors' => array(
                                         $submit_button => 'color: {{VALUE}} !important;',
+
                                 ),
                         )
                 );
@@ -949,6 +950,7 @@ $this->end_controls_section();
                                 'type'      => Controls_Manager::COLOR,
                                 'selectors' => array(
                                         str_replace( ', ', ':hover, ', $submit_button ) . ':hover' => 'color: {{VALUE}} !important;',
+
                                 ),
                         )
                 );
@@ -986,6 +988,7 @@ $this->end_controls_section();
                                'size_units' => array( 'px', 'em', '%' ),
                                'selectors'  => array(
                                        $submit_button => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+
                                ),
                        )
                );
@@ -1027,6 +1030,7 @@ $this->end_controls_section();
                                 'type'      => Controls_Manager::COLOR,
                                 'selectors' => array(
                                         $next_button => 'color: {{VALUE}} !important;',
+
                                 ),
                         )
                 );
@@ -1038,6 +1042,7 @@ $this->end_controls_section();
                                 'type'      => Controls_Manager::COLOR,
                                 'selectors' => array(
                                         $next_button . ':hover' => 'color: {{VALUE}} !important;',
+
                                 ),
                         )
                 );
@@ -1075,6 +1080,7 @@ $this->end_controls_section();
                                'size_units' => array( 'px', 'em', '%' ),
                                'selectors'  => array(
                                        $next_button => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+
                                ),
                        )
                );
@@ -1116,6 +1122,7 @@ $this->end_controls_section();
                                 'type'      => Controls_Manager::COLOR,
                                 'selectors' => array(
                                         $previous_button => 'color: {{VALUE}} !important;',
+
                                 ),
                         )
                 );
@@ -1127,6 +1134,7 @@ $this->end_controls_section();
                                 'type'      => Controls_Manager::COLOR,
                                 'selectors' => array(
                                         $previous_button . ':hover' => 'color: {{VALUE}} !important;',
+
                                 ),
                         )
                 );
@@ -1164,6 +1172,7 @@ $this->end_controls_section();
                                'size_units' => array( 'px', 'em', '%' ),
                                'selectors'  => array(
                                        $previous_button => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+
                                ),
                        )
                );
@@ -1175,6 +1184,7 @@ $this->end_controls_section();
                                 'type'       => Controls_Manager::DIMENSIONS,
                                 'size_units' => array( 'px', 'em', '%' ),
                                 'selectors'  => array(
+
                                         $previous_button => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                                 ),
                         )
