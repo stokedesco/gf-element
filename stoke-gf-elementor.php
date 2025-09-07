@@ -24,6 +24,19 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/FieldShortcodes.php';
 
 const MIN_GF_VERSION = '2.7.15';
 
+// Add a settings link on the plugins page.
+add_filter(
+    'plugin_action_links_' . plugin_basename( __FILE__ ),
+    function ( $links ) {
+        $links[] = sprintf(
+            '<a href="%s">%s</a>',
+            esc_url( admin_url( 'admin.php?page=gf_edit_forms&view=stkc-gf-field-shortcodes' ) ),
+            esc_html__( 'Settings', 'stoke-gf-elementor' )
+        );
+        return $links;
+    }
+);
+
 /**
  * Check if Gravity Forms is installed and activated, and if the minimum required version is met.
  *
