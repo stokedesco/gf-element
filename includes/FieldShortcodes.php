@@ -146,8 +146,8 @@ class FieldShortcodes {
     public static function register_menu() {
         add_submenu_page(
             'gf_edit_forms',
-            esc_html__( 'GF Field Shortcodes', 'stoke-gf-elementor' ),
-            esc_html__( 'GF Field Shortcodes', 'stoke-gf-elementor' ),
+            esc_html__( 'Field Shortcodes', 'stoke-gf-elementor' ),
+            esc_html__( 'Field Shortcodes', 'stoke-gf-elementor' ),
             'manage_options',
             'stkc-gf-field-shortcodes',
             [ __CLASS__, 'render_page' ],
@@ -200,7 +200,7 @@ class FieldShortcodes {
 
         ?>
         <div class="wrap">
-            <h1><?php esc_html_e( 'GF Field Shortcodes', 'stoke-gf-elementor' ); ?></h1>
+            <h1><?php esc_html_e( 'Field Shortcodes', 'stoke-gf-elementor' ); ?></h1>
             <form method="post" action="options.php">
                 <?php
                 settings_fields( 'stkc_content' );

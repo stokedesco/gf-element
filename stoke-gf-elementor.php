@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:         Stoke GF Elementor
+ * Plugin Name:         Stoke Gravity Forms for Elementor
  * Plugin URI:          https://stokedesign.co/sandbox
- * Description:         Allows Gravity forms to easily be inserted and styled in Elementor.
+ * Description:         Allows Gravity Forms to easily be inserted and styled in Elementor.
  * Version:             1.2.0
  * Author:              Stoke Design Co
  * Author URI:          https://stokedesign.co/
@@ -87,9 +87,9 @@ add_action(
             // translators: Do not translate [version]; it is replaced with the minimum required Gravity Forms version required.
                 esc_html__( '[plugin_name] requires Gravity Forms [version] or higher. Please upgrade Gravity Forms to use this widget.', 'stoke-gf-elementor' ),
                 array(
-					'[plugin_name]' => esc_html__( 'Stoke GF Elementor', 'stoke-gf-elementor' ),
-					'[version]'     => MIN_GF_VERSION,
-                )
+                                        '[plugin_name]' => esc_html__( 'Stoke Gravity Forms for Elementor', 'stoke-gf-elementor' ),
+                                        '[version]'     => MIN_GF_VERSION,
+                                )
             )
 		);
 
