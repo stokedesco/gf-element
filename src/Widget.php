@@ -125,15 +125,30 @@ class Widget extends Widget_Base {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @access protected
-	 */
-	protected function register_controls() {
-		$this->start_controls_section(
-			'section_form',
-			array(
-				'label' => __( 'Form Settings', 'gk-gravity-forms-elementor-widget' ),
-			)
-		);
+        * @access protected
+        */
+       protected function register_controls() {
+               $inputs = implode(
+                       ', ',
+                       array(
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' input[type="text"]',
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' input[type="email"]',
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' input[type="url"]',
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' input[type="tel"]',
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' input[type="search"]',
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' input[type="password"]',
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' input[type="number"]',
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' textarea',
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' select',
+                       )
+               );
+
+               $this->start_controls_section(
+                       'section_form',
+                       array(
+                               'label' => __( 'Form Settings', 'gk-gravity-forms-elementor-widget' ),
+                       )
+               );
 
 		$this->add_control(
 			'form_id',
@@ -222,10 +237,7 @@ class Widget extends Widget_Base {
 			)
 		);
 
-                $this->end_controls_section();
-
-                        )
-                );
+               $this->end_controls_section();
 
                 $this->add_control(
                         'heading_title_color',
@@ -420,7 +432,99 @@ class Widget extends Widget_Base {
                );
 
                $this->end_controls_section();
-        }
+
+               $this->start_controls_section(
+                       'section_inputs',
+                       array(
+                               'label' => __( 'Inputs', 'gk-gravity-forms-elementor-widget' ),
+                               'tab'   => Controls_Manager::TAB_STYLE,
+                       )
+               );
+
+               $this->add_group_control(
+                       Group_Control_Typography::get_type(),
+                       array(
+                               'name'     => 'inputs_typography',
+                               'selector' => $inputs,
+                       )
+               );
+
+               $this->add_control(
+                       'inputs_text_color',
+                       array(
+                               'label'     => __( 'Text Color', 'gk-gravity-forms-elementor-widget' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       $inputs => 'color: {{VALUE}};',
+                               ),
+                       )
+               );
+
+               $placeholder_selectors = implode(
+                       ', ',
+                       array(
+                               str_replace( ', ', '::placeholder, ', $inputs ) . '::placeholder',
+                               str_replace( ', ', '::-webkit-input-placeholder, ', $inputs ) . '::-webkit-input-placeholder',
+                               str_replace( ', ', ':-ms-input-placeholder, ', $inputs ) . ':-ms-input-placeholder',
+                               str_replace( ', ', '::-ms-input-placeholder, ', $inputs ) . '::-ms-input-placeholder',
+                               str_replace( ', ', ':-moz-placeholder, ', $inputs ) . ':-moz-placeholder',
+                               str_replace( ', ', '::-moz-placeholder, ', $inputs ) . '::-moz-placeholder',
+                       )
+               );
+
+               $this->add_control(
+                       'inputs_placeholder_color',
+                       array(
+                               'label'     => __( 'Placeholder Color', 'gk-gravity-forms-elementor-widget' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       $placeholder_selectors => 'color: {{VALUE}};',
+                               ),
+                       )
+               );
+
+               $this->add_group_control(
+                       Group_Control_Background::get_type(),
+                       array(
+                               'name'     => 'inputs_background',
+                               'selector' => $inputs,
+                       )
+               );
+
+               $this->add_group_control(
+                       Group_Control_Border::get_type(),
+                       array(
+                               'name'     => 'inputs_border',
+                               'selector' => $inputs,
+                       )
+               );
+
+               $this->add_responsive_control(
+                       'inputs_border_radius',
+                       array(
+                               'label'      => __( 'Border Radius', 'gk-gravity-forms-elementor-widget' ),
+                               'type'       => Controls_Manager::DIMENSIONS,
+                               'size_units' => array( 'px', 'em', '%' ),
+                               'selectors'  => array(
+                                       $inputs => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                               ),
+                       )
+               );
+
+               $this->add_responsive_control(
+                       'inputs_padding',
+                       array(
+                               'label'      => __( 'Padding', 'gk-gravity-forms-elementor-widget' ),
+                               'type'       => Controls_Manager::DIMENSIONS,
+                               'size_units' => array( 'px', 'em', '%' ),
+                               'selectors'  => array(
+                                       $inputs => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                               ),
+                       )
+               );
+
+               $this->end_controls_section();
+       }
 
 	/**
 	 * Renders Gravity Forms widget output on the frontend.
