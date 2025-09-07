@@ -236,11 +236,10 @@ class FieldShortcodes {
                     </thead>
                     <tbody>
                     <?php foreach ( $mappings as $i => $m ) :
-                        $form    = (int) $m['form_id'];
-                        $field   = esc_attr( (string) $m['field_id'] );
-                        $tag     = esc_attr( $m['tag'] );
-                        $source  = esc_attr( $m['source'] );
-                        $preview = sprintf( '?eid={entry_id}&f%d_%s={Field:%s}', $form, $field, $field );
+                        $form   = (int) $m['form_id'];
+                        $field  = esc_attr( (string) $m['field_id'] );
+                        $tag    = esc_attr( $m['tag'] );
+                        $source = esc_attr( $m['source'] );
                         ?>
                         <tr>
 
@@ -274,14 +273,28 @@ class FieldShortcodes {
                             </td>
                             <td><button type="button" class="button stkc-remove-row" aria-label="<?php esc_attr_e( 'Remove', 'stoke-gf-elementor' ); ?>">&times;</button></td>
                         </tr>
-                        <tr class="stkc-preview-row">
-                            <td colspan="5">
-                                <p class="description"><code><?php echo esc_html( $preview ); ?></code> <button type="button" class="button button-small stkc-copy" data-copy="<?php echo esc_attr( $preview ); ?>"><?php esc_html_e( 'Copy', 'stoke-gf-elementor' ); ?></button></p>
-                            </td>
-                        </tr>
                     <?php endforeach; ?>
                     </tbody>
                 </table>
+                <?php
+                $parts      = [];
+                $shortcodes = [];
+                foreach ( $mappings as $m ) {
+                    $f = isset( $m['form_id'] ) ? (int) $m['form_id'] : 0;
+                    $fld = isset( $m['field_id'] ) ? (string) $m['field_id'] : '';
+                    if ( $f && '' !== $fld ) {
+                        $parts[] = sprintf( 'f%d_%s={Field:%s}', $f, $fld, $fld );
+                    }
+                    if ( ! empty( $m['tag'] ) ) {
+                        $shortcodes[] = '[' . preg_replace( '/[^A-Za-z0-9_]/', '', $m['tag'] ) . ']';
+                    }
+                }
+                $preview    = '?eid={entry_id}' . ( $parts ? '&' . implode( '&', $parts ) : '' );
+                $sc_display = implode( ' ', $shortcodes );
+                ?>
+                <p id="stkc-gf-sc-example" class="description"><code><?php echo esc_html( $preview ); ?></code> <button type="button" class="button button-small stkc-copy" data-copy="<?php echo esc_attr( $preview ); ?>"><?php esc_html_e( 'Copy', 'stoke-gf-elementor' ); ?></button></p>
+                <p class="description"><?php esc_html_e( 'Copy this query and add it to the end of your confirmation page URL.', 'stoke-gf-elementor' ); ?></p>
+                <p class="description"><?php esc_html_e( 'Use these shortcodes in your confirmation page to display the submitted values:', 'stoke-gf-elementor' ); ?> <span id="stkc-gf-sc-shortcodes"><?php echo esc_html( $sc_display ); ?></span></p>
                 <p><button type="button" class="button stkc-add-row"><?php esc_html_e( 'Add Mapping', 'stoke-gf-elementor' ); ?></button></p>
                 <?php submit_button(); ?>
             </form>
@@ -314,11 +327,6 @@ class FieldShortcodes {
                     </select>
                 </td>
                 <td><button type="button" class="button stkc-remove-row" aria-label="<?php esc_attr_e( 'Remove', 'stoke-gf-elementor' ); ?>">&times;</button></td>
-            </tr>
-            <tr class="stkc-preview-row">
-                <td colspan="5">
-                    <p class="description"><code></code> <button type="button" class="button button-small stkc-copy" data-copy=""><?php esc_html_e( 'Copy', 'stoke-gf-elementor' ); ?></button></p>
-                </td>
             </tr>
         </script>
         <?php

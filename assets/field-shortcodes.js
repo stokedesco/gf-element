@@ -14,17 +14,28 @@ jQuery(function($){
         $fieldSelect.html(opts);
     }
 
-    function updatePreview($row){
-        var form  = $.trim($row.find('input[name$="[form_id]"]').val());
-        var field = $.trim($row.find('input[name$="[field_id]"]').val());
-
-        var preview = '';
-        if(form && field){
-            preview = '?eid={entry_id}&f'+form+'_'+field+'={Field:'+field+'}';
+    function buildPreview(){
+        var parts = [];
+        var scs   = [];
+        $('.stkc-gf-mappings tbody tr').each(function(){
+            var $row  = $(this);
+            var form  = $.trim($row.find('input[name$="[form_id]"]').val());
+            var field = $.trim($row.find('input[name$="[field_id]"]').val());
+            var tag   = $.trim($row.find('input[name$="[tag]"]').val());
+            if(form && field){
+                parts.push('f'+form+'_'+field+'={Field:'+field+'}');
+            }
+            if(tag){
+                scs.push('['+tag+']');
+            }
+        });
+        var preview = '?eid={entry_id}';
+        if(parts.length){
+            preview += '&'+parts.join('&');
         }
-        var $previewRow = $row.next('.stkc-preview-row');
-        $previewRow.find('code').text(preview);
-        $previewRow.find('.stkc-copy').attr('data-copy', preview);
+        $('#stkc-gf-sc-example code').text(preview);
+        $('#stkc-gf-sc-example .stkc-copy').attr('data-copy', preview);
+        $('#stkc-gf-sc-shortcodes').text(scs.join(' '));
     }
 
     $('.stkc-gf-mappings tbody').on('change', 'select[name$="[form_id]"]', function(){
@@ -33,41 +44,40 @@ jQuery(function($){
         var $fieldSelect = $row.find('select[name$="[field_id]"]');
         $row.find('input[name$="[form_id]"]').val(val);
         populateFields(val, $fieldSelect, '');
-        updatePreview($row);
+        buildPreview();
     });
 
     $('.stkc-gf-mappings tbody').on('change', 'select[name$="[field_id]"]', function(){
         var $row = $(this).closest('tr');
         var val = $(this).val();
         $row.find('input[name$="[field_id]"]').val(val);
-        updatePreview($row);
+        buildPreview();
     });
 
-    $('.stkc-gf-mappings tbody').on('input', 'input[name$="[form_id]"], input[name$="[field_id]"]', function(){
-        updatePreview($(this).closest('tr'));
+    $('.stkc-gf-mappings tbody').on('input', 'input[name$="[form_id]"], input[name$="[field_id]"], input[name$="[tag]"]', function(){
+        buildPreview();
     });
 
     $('.stkc-add-row').on('click', function(){
         var $tbody = $('.stkc-gf-mappings tbody');
-        var index = $tbody.find('tr').length / 2; // two rows per mapping
+        var index = $tbody.find('tr').length;
         var tpl = $('#stkc-gf-sc-row-template').html().replace(/__index__/g, index);
         $tbody.append(tpl);
-        var $rows = $tbody.find('tr').slice(-2);
-        var $formSelect = $rows.eq(0).find('select[name$="[form_id]"]');
-        var $fieldSelect = $rows.eq(0).find('select[name$="[field_id]"]');
+        var $row = $tbody.find('tr').last();
+        var $formSelect = $row.find('select[name$="[form_id]"]');
+        var $fieldSelect = $row.find('select[name$="[field_id]"]');
         populateFields($formSelect.val(), $fieldSelect, '');
-        $rows.eq(0).find('input[name$="[form_id]"]').val($formSelect.val());
-        $rows.eq(0).find('input[name$="[field_id]"]').val($fieldSelect.val());
-        updatePreview($rows.eq(0));
+        $row.find('input[name$="[form_id]"]').val($formSelect.val());
+        $row.find('input[name$="[field_id]"]').val($fieldSelect.val());
+        buildPreview();
     });
 
     $('.stkc-gf-mappings tbody').on('click', '.stkc-remove-row', function(){
         var $row = $(this).closest('tr');
-        $row.next('.stkc-preview-row').remove();
         $row.remove();
+        buildPreview();
     });
-
-    $('.stkc-gf-mappings tbody').on('click', '.stkc-copy', function(){
+    $(document).on('click', '.stkc-copy', function(){
         var text = $(this).data('copy');
         if(text){
             navigator.clipboard.writeText(text);
@@ -76,14 +86,12 @@ jQuery(function($){
 
     $('.stkc-gf-mappings tbody tr').each(function(){
         var $tr = $(this);
-        if(!$tr.hasClass('stkc-preview-row')){
-            var $formSelect = $tr.find('select[name$="[form_id]"]');
-            var $fieldSelect = $tr.find('select[name$="[field_id]"]');
-            populateFields($formSelect.val(), $fieldSelect, $fieldSelect.val());
-            $tr.find('input[name$="[form_id]"]').val($formSelect.val());
-            $tr.find('input[name$="[field_id]"]').val($fieldSelect.val());
-            updatePreview($tr);
-        }
+        var $formSelect = $tr.find('select[name$="[form_id]"]');
+        var $fieldSelect = $tr.find('select[name$="[field_id]"]');
+        populateFields($formSelect.val(), $fieldSelect, $fieldSelect.val());
+        $tr.find('input[name$="[form_id]"]').val($formSelect.val());
+        $tr.find('input[name$="[field_id]"]').val($fieldSelect.val());
     });
+    buildPreview();
 });
 
