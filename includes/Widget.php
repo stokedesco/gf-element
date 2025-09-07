@@ -730,10 +730,9 @@ $this->end_controls_section();
                         $this->add_control(
                                 'checks_radios_inactive_color',
                                 array(
-                                        'label'     => __( 'Inactive Color', 'stoke-gf-elementor' ),
+                                        'label'     => __( 'Inactive Border Color', 'stoke-gf-elementor' ),
                                         'type'      => Controls_Manager::COLOR,
                                         'selectors' => array(
-                                                $checks_radios_unchecked       => 'color: {{VALUE}};',
                                                 $checks_radios_unchecked_before => 'border-color: {{VALUE}};',
                                         ),
                                 )
@@ -761,10 +760,9 @@ $this->end_controls_section();
                         $this->add_control(
                                 'checks_radios_active_color',
                                 array(
-                                        'label'     => __( 'Active Color', 'stoke-gf-elementor' ),
+                                        'label'     => __( 'Active Border Color', 'stoke-gf-elementor' ),
                                         'type'      => Controls_Manager::COLOR,
                                         'selectors' => array(
-                                                $checks_radios_checked       => 'color: {{VALUE}};',
                                                 $checks_radios_checked_before => 'border-color: {{VALUE}};',
                                         ),
                                 )
@@ -790,16 +788,16 @@ $this->end_controls_section();
 			)
 			);
 			
-			$this->add_control(
-			'checks_radios_label_color',
-			array(
-			'label'     => __( 'Label Color', 'stoke-gf-elementor' ),
-			'type'      => Controls_Manager::COLOR,
-			'selectors' => array(
-			$checks_radios_labels => 'color: {{VALUE}};',
-			),
-			)
-			);
+                        $this->add_control(
+                        'checks_radios_label_color',
+                        array(
+                        'label'     => __( 'Label Text Color', 'stoke-gf-elementor' ),
+                        'type'      => Controls_Manager::COLOR,
+                        'selectors' => array(
+                        $checks_radios_labels => 'color: {{VALUE}} !important;',
+                        ),
+                        )
+                        );
 			
 			$this->add_responsive_control(
 			'checks_radios_label_spacing',
@@ -818,7 +816,7 @@ $this->end_controls_section();
 			),
 			),
                         'selectors'  => array(
-                        $checks_radios_labels => 'padding-left: {{SIZE}}{{UNIT}};',
+                        $checks_radios_labels => 'padding-left: {{SIZE}}{{UNIT}} !important;',
                         ),
 			)
 			);
@@ -939,7 +937,8 @@ $this->end_controls_section();
                                 'label'     => __( 'Text Color', 'stoke-gf-elementor' ),
                                 'type'      => Controls_Manager::COLOR,
                                 'selectors' => array(
-                                        $submit_button => 'color: {{VALUE}};',
+                                        $submit_button => 'color: {{VALUE}} !important;',
+
                                 ),
                         )
                 );
@@ -950,7 +949,8 @@ $this->end_controls_section();
                                 'label'     => __( 'Hover Text Color', 'stoke-gf-elementor' ),
                                 'type'      => Controls_Manager::COLOR,
                                 'selectors' => array(
-                                        str_replace( ', ', ':hover, ', $submit_button ) . ':hover' => 'color: {{VALUE}};',
+                                        str_replace( ', ', ':hover, ', $submit_button ) . ':hover' => 'color: {{VALUE}} !important;',
+
                                 ),
                         )
                 );
@@ -987,7 +987,8 @@ $this->end_controls_section();
                                'type'       => Controls_Manager::DIMENSIONS,
                                'size_units' => array( 'px', 'em', '%' ),
                                'selectors'  => array(
-                                       $submit_button => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                                       $submit_button => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+
                                ),
                        )
                );
@@ -999,7 +1000,7 @@ $this->end_controls_section();
                                 'type'       => Controls_Manager::DIMENSIONS,
                                 'size_units' => array( 'px', 'em', '%' ),
                                 'selectors'  => array(
-                                        $submit_button => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                                        $submit_button => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                                 ),
                         )
                 );
@@ -1028,7 +1029,8 @@ $this->end_controls_section();
                                 'label'     => __( 'Text Color', 'stoke-gf-elementor' ),
                                 'type'      => Controls_Manager::COLOR,
                                 'selectors' => array(
-                                        $next_button => 'color: {{VALUE}};',
+                                        $next_button => 'color: {{VALUE}} !important;',
+
                                 ),
                         )
                 );
@@ -1039,7 +1041,8 @@ $this->end_controls_section();
                                 'label'     => __( 'Hover Text Color', 'stoke-gf-elementor' ),
                                 'type'      => Controls_Manager::COLOR,
                                 'selectors' => array(
-                                        $next_button . ':hover' => 'color: {{VALUE}};',
+                                        $next_button . ':hover' => 'color: {{VALUE}} !important;',
+
                                 ),
                         )
                 );
@@ -1076,7 +1079,8 @@ $this->end_controls_section();
                                'type'       => Controls_Manager::DIMENSIONS,
                                'size_units' => array( 'px', 'em', '%' ),
                                'selectors'  => array(
-                                       $next_button => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                                       $next_button => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+
                                ),
                        )
                );
@@ -1088,7 +1092,7 @@ $this->end_controls_section();
                                 'type'       => Controls_Manager::DIMENSIONS,
                                 'size_units' => array( 'px', 'em', '%' ),
                                 'selectors'  => array(
-                                        $next_button => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                                        $next_button => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                                 ),
                         )
                 );
@@ -1117,7 +1121,8 @@ $this->end_controls_section();
                                 'label'     => __( 'Text Color', 'stoke-gf-elementor' ),
                                 'type'      => Controls_Manager::COLOR,
                                 'selectors' => array(
-                                        $previous_button => 'color: {{VALUE}};',
+                                        $previous_button => 'color: {{VALUE}} !important;',
+
                                 ),
                         )
                 );
@@ -1128,7 +1133,8 @@ $this->end_controls_section();
                                 'label'     => __( 'Hover Text Color', 'stoke-gf-elementor' ),
                                 'type'      => Controls_Manager::COLOR,
                                 'selectors' => array(
-                                        $previous_button . ':hover' => 'color: {{VALUE}};',
+                                        $previous_button . ':hover' => 'color: {{VALUE}} !important;',
+
                                 ),
                         )
                 );
@@ -1165,7 +1171,8 @@ $this->end_controls_section();
                                'type'       => Controls_Manager::DIMENSIONS,
                                'size_units' => array( 'px', 'em', '%' ),
                                'selectors'  => array(
-                                       $previous_button => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                                       $previous_button => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+
                                ),
                        )
                );
@@ -1177,7 +1184,8 @@ $this->end_controls_section();
                                 'type'       => Controls_Manager::DIMENSIONS,
                                 'size_units' => array( 'px', 'em', '%' ),
                                 'selectors'  => array(
-                                        $previous_button => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+
+                                        $previous_button => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                                 ),
                         )
                 );
