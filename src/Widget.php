@@ -829,6 +829,60 @@ $this->end_controls_section();
 
                 $this->end_controls_section();
 
+                $this->start_controls_section(
+                        'section_messages',
+                        array(
+                                'label' => __( 'Messages', 'gk-gravity-forms-elementor-widget' ),
+                                'tab'   => Controls_Manager::TAB_STYLE,
+                        )
+                );
+
+                $this->add_control(
+                        'validation_error_text_color',
+                        array(
+                                'label'     => __( 'Validation Banner Text Color', 'gk-gravity-forms-elementor-widget' ),
+                                'type'      => Controls_Manager::COLOR,
+                                'selectors' => array(
+                                        '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .validation_error' => 'color: {{VALUE}};',
+                                ),
+                        )
+                );
+
+                $this->add_control(
+                        'validation_error_background_color',
+                        array(
+                                'label'     => __( 'Validation Banner Background Color', 'gk-gravity-forms-elementor-widget' ),
+                                'type'      => Controls_Manager::COLOR,
+                                'selectors' => array(
+                                        '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .validation_error' => 'background-color: {{VALUE}};',
+                                ),
+                        )
+                );
+
+                $this->add_control(
+                        'field_error_text_color',
+                        array(
+                                'label'     => __( 'Field Error Text Color', 'gk-gravity-forms-elementor-widget' ),
+                                'type'      => Controls_Manager::COLOR,
+                                'selectors' => array(
+                                        '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield_validation_message, {{WRAPPER}} .' . self::ELEMENT_KEY . ' .validation_message' => 'color: {{VALUE}};',
+                                ),
+                        )
+                );
+
+                $this->add_control(
+                        'confirmation_background_color',
+                        array(
+                                'label'     => __( 'Confirmation Background Color', 'gk-gravity-forms-elementor-widget' ),
+                                'type'      => Controls_Manager::COLOR,
+                                'selectors' => array(
+                                        '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_confirmation_message' => 'background-color: {{VALUE}};',
+                                ),
+                        )
+                );
+
+                $this->end_controls_section();
+
         }
 
         /**
