@@ -137,11 +137,12 @@ class Widget extends Widget_Base {
                                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' input[type="tel"]',
                                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' input[type="search"]',
                                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' input[type="password"]',
-                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' input[type="number"]',
-                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' textarea',
-                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' select',
-                       )
-               );
+'{{WRAPPER}} .' . self::ELEMENT_KEY . ' input[type="number"]',
+'{{WRAPPER}} .' . self::ELEMENT_KEY . ' select',
+)
+);
+
+$textarea = '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield .ginput_container textarea';
 
                $this->start_controls_section(
                        'section_form',
@@ -511,20 +512,112 @@ class Widget extends Widget_Base {
                        )
                );
 
-               $this->add_responsive_control(
-                       'inputs_padding',
-                       array(
-                               'label'      => __( 'Padding', 'gk-gravity-forms-elementor-widget' ),
-                               'type'       => Controls_Manager::DIMENSIONS,
-                               'size_units' => array( 'px', 'em', '%' ),
-                               'selectors'  => array(
-                                       $inputs => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                               ),
-                       )
-               );
+$this->add_responsive_control(
+'inputs_padding',
+array(
+'label'      => __( 'Padding', 'gk-gravity-forms-elementor-widget' ),
+'type'       => Controls_Manager::DIMENSIONS,
+'size_units' => array( 'px', 'em', '%' ),
+'selectors'  => array(
+$inputs => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+),
+)
+);
 
-               $this->end_controls_section();
-       }
+$this->end_controls_section();
+
+$this->start_controls_section(
+'section_textarea',
+array(
+'label' => __( 'Textarea', 'gk-gravity-forms-elementor-widget' ),
+'tab'   => Controls_Manager::TAB_STYLE,
+)
+);
+
+$this->add_group_control(
+Group_Control_Typography::get_type(),
+array(
+'name'     => 'textarea_typography',
+'selector' => $textarea,
+)
+);
+
+$this->add_control(
+'textarea_text_color',
+array(
+'label'     => __( 'Text Color', 'gk-gravity-forms-elementor-widget' ),
+'type'      => Controls_Manager::COLOR,
+'selectors' => array(
+$textarea => 'color: {{VALUE}};',
+),
+)
+);
+
+$textarea_placeholder_selectors = implode(
+', ',
+array(
+$textarea . '::placeholder',
+$textarea . '::-webkit-input-placeholder',
+$textarea . ':-ms-input-placeholder',
+$textarea . '::-ms-input-placeholder',
+$textarea . ':-moz-placeholder',
+$textarea . '::-moz-placeholder',
+)
+);
+
+$this->add_control(
+'textarea_placeholder_color',
+array(
+'label'     => __( 'Placeholder Color', 'gk-gravity-forms-elementor-widget' ),
+'type'      => Controls_Manager::COLOR,
+'selectors' => array(
+$textarea_placeholder_selectors => 'color: {{VALUE}};',
+),
+)
+);
+
+$this->add_group_control(
+Group_Control_Background::get_type(),
+array(
+'name'     => 'textarea_background',
+'selector' => $textarea,
+)
+);
+
+$this->add_group_control(
+Group_Control_Border::get_type(),
+array(
+'name'     => 'textarea_border',
+'selector' => $textarea,
+)
+);
+
+$this->add_responsive_control(
+'textarea_border_radius',
+array(
+'label'      => __( 'Border Radius', 'gk-gravity-forms-elementor-widget' ),
+'type'       => Controls_Manager::DIMENSIONS,
+'size_units' => array( 'px', 'em', '%' ),
+'selectors'  => array(
+$textarea => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+),
+)
+);
+
+$this->add_responsive_control(
+'textarea_padding',
+array(
+'label'      => __( 'Padding', 'gk-gravity-forms-elementor-widget' ),
+'type'       => Controls_Manager::DIMENSIONS,
+'size_units' => array( 'px', 'em', '%' ),
+'selectors'  => array(
+$textarea => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+),
+)
+);
+
+$this->end_controls_section();
+}
 
 	/**
 	 * Renders Gravity Forms widget output on the frontend.
