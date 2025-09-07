@@ -340,7 +340,47 @@ class Widget extends Widget_Base {
 			array(
 				'name'     => 'form_box_shadow',
 				'selector' => '{{WRAPPER}} .' . self::ELEMENT_KEY,
-			)
+			),
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_labels',
+			array(
+				'label' => __( 'Labels', 'gk-gravity-forms-elementor-widget' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			),
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'label_typography',
+				'selector' => '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield_label',
+			),
+		);
+
+		$this->add_control(
+			'label_color',
+			array(
+				'label'     => __( 'Text Color', 'gk-gravity-forms-elementor-widget' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield_label' => 'color: {{VALUE}};',
+				),
+			),
+		);
+
+		$this->add_control(
+			'required_color',
+			array(
+				'label'     => __( 'Required Color', 'gk-gravity-forms-elementor-widget' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield_required' => 'color: {{VALUE}};',
+				),
+			),
 		);
 
 		$this->end_controls_section();
