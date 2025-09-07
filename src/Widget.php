@@ -144,6 +144,22 @@ class Widget extends Widget_Base {
 
 $textarea = '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield .ginput_container textarea';
 
+$checks_radios = implode(
+', ',
+array(
+'{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]',
+'{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]',
+)
+);
+
+$checks_radios_labels = implode(
+', ',
+array(
+'{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox label',
+'{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio label',
+)
+);
+
                $this->start_controls_section(
                        'section_form',
                        array(
@@ -520,6 +536,68 @@ array(
 'size_units' => array( 'px', 'em', '%' ),
 'selectors'  => array(
 $inputs => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+),
+)
+);
+
+$this->end_controls_section();
+
+$this->start_controls_section(
+'section_checks_radios',
+array(
+'label' => __( 'Checkboxes & Radios', 'gk-gravity-forms-elementor-widget' ),
+'tab'   => Controls_Manager::TAB_STYLE,
+)
+);
+
+$this->add_control(
+'checks_radios_accent_color',
+array(
+'label'     => __( 'Accent Color', 'gk-gravity-forms-elementor-widget' ),
+'type'      => Controls_Manager::COLOR,
+'selectors' => array(
+$checks_radios => 'accent-color: {{VALUE}};',
+),
+)
+);
+
+$this->add_group_control(
+Group_Control_Typography::get_type(),
+array(
+'name'     => 'checks_radios_label_typography',
+'selector' => $checks_radios_labels,
+)
+);
+
+$this->add_control(
+'checks_radios_label_color',
+array(
+'label'     => __( 'Label Color', 'gk-gravity-forms-elementor-widget' ),
+'type'      => Controls_Manager::COLOR,
+'selectors' => array(
+$checks_radios_labels => 'color: {{VALUE}};',
+),
+)
+);
+
+$this->add_responsive_control(
+'checks_radios_label_spacing',
+array(
+'label'      => __( 'Label Spacing', 'gk-gravity-forms-elementor-widget' ),
+'type'       => Controls_Manager::SLIDER,
+'size_units' => array( 'px', 'em' ),
+'range'      => array(
+'px' => array(
+'min' => 0,
+'max' => 50,
+),
+'em' => array(
+'min' => 0,
+'max' => 5,
+),
+),
+'selectors'  => array(
+$checks_radios_labels => 'margin-left: {{SIZE}}{{UNIT}};',
 ),
 )
 );
