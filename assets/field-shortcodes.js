@@ -15,26 +15,34 @@ jQuery(function($){
     }
 
     function buildPreview(){
-        var parts = [];
-        var scs   = [];
+        var formParts = {};
+        var scs       = [];
         $('.stkc-gf-mappings tbody tr').each(function(){
             var $row  = $(this);
             var form  = $.trim($row.find('input[name$="[form_id]"]').val());
             var field = $.trim($row.find('input[name$="[field_id]"]').val());
             var tag   = $.trim($row.find('input[name$="[tag]"]').val());
             if(form && field){
-                parts.push('f'+form+'_'+field+'={Field:'+field+'}');
+                formParts[form] = formParts[form] || [];
+                formParts[form].push('f'+form+'_'+field+'={Field:'+field+'}');
             }
             if(tag){
                 scs.push('['+tag+']');
             }
         });
-        var preview = '?eid={entry_id}';
-        if(parts.length){
-            preview += '&'+parts.join('&');
-        }
-        $('#stkc-gf-sc-example code').text(preview);
-        $('#stkc-gf-sc-example .stkc-copy').attr('data-copy', preview);
+        var $example = $('#stkc-gf-sc-example');
+        $example.empty();
+        $.each(formParts, function(fid, parts){
+            var preview = '?eid={entry_id}';
+            if(parts.length){
+                preview += '&'+parts.join('&');
+            }
+            var $p = $('<p class="description"></p>');
+            $p.append($('<code></code>').text(preview));
+            $p.append(' ');
+            $p.append($('<button type="button" class="button button-small stkc-copy"></button>').text('Copy').attr('data-copy', preview));
+            $example.append($p);
+        });
         $('#stkc-gf-sc-shortcodes').text(scs.join(' '));
     }
 
