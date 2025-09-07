@@ -3,7 +3,7 @@
  * Plugin Name:         Gravity Forms Widget for Elementor
  * Plugin URI:          https://www.gravitykit.com/products/gravity-forms-elementor-widget/?utm_source=plugin&utm_campaign=elementor-widget&utm_content=pluginuri
  * Description:         Integrates Gravity Forms with Elementor page builder. Simple. Configurable. Powerful.
- * Version:             1.0
+ * Version:             1.1b
  * Author:              Stoke Design Co
  * Author URI:          https://stokedesign.co/sandbox
  * Text Domain:         gk-gravity-forms-elementor-widget
