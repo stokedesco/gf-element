@@ -418,6 +418,8 @@ array(
 
                $this->end_controls_section();
 
+               $this->section_progress();
+
                $this->start_controls_section(
                        'section_labels',
                        array(
@@ -738,18 +740,81 @@ $this->end_controls_section();
 			),
 		);
 
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'     => 'file_upload_border',
-				'selector' => $file_upload_button,
-			),
-		);
+                $this->add_group_control(
+                        Group_Control_Border::get_type(),
+                        array(
+                                'name'     => 'file_upload_border',
+                                'selector' => $file_upload_button,
+                        ),
+                );
 
-		$this->end_controls_section();
+                $this->end_controls_section();
 
+        }
 
-}
+        /**
+         * Registers progress bar style controls.
+         *
+         * @since 1.0.0
+         *
+         * @access private
+         */
+        private function section_progress() {
+                $this->start_controls_section(
+                        'section_progress',
+                        array(
+                                'label' => __( 'Progress Bar', 'gk-gravity-forms-elementor-widget' ),
+                                'tab'   => Controls_Manager::TAB_STYLE,
+                        )
+                );
+
+                $this->add_control(
+                        'progress_track_color',
+                        array(
+                                'label'     => __( 'Track Color', 'gk-gravity-forms-elementor-widget' ),
+                                'type'      => Controls_Manager::COLOR,
+                                'selectors' => array(
+                                        '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gf_progressbar' => 'background-color: {{VALUE}};',
+                                ),
+                        )
+                );
+
+                $this->add_control(
+                        'progress_fill_color',
+                        array(
+                                'label'     => __( 'Fill Color', 'gk-gravity-forms-elementor-widget' ),
+                                'type'      => Controls_Manager::COLOR,
+                                'selectors' => array(
+                                        '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gf_progressbar_percentage' => 'background-color: {{VALUE}};',
+                                ),
+                        )
+                );
+
+                $this->add_responsive_control(
+                        'progress_height',
+                        array(
+                                'label'      => __( 'Height', 'gk-gravity-forms-elementor-widget' ),
+                                'type'       => Controls_Manager::SLIDER,
+                                'size_units' => array( 'px', 'em' ),
+                                'range'      => array(
+                                        'px' => array(
+                                                'min' => 0,
+                                                'max' => 100,
+                                        ),
+                                        'em' => array(
+                                                'min' => 0,
+                                                'max' => 10,
+                                        ),
+                                ),
+                                'selectors'  => array(
+                                        '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gf_progressbar'            => 'height: {{SIZE}}{{UNIT}};',
+                                        '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gf_progressbar_percentage' => 'height: {{SIZE}}{{UNIT}};',
+                                ),
+                        )
+                );
+
+                $this->end_controls_section();
+        }
 
 	/**
 	 * Renders Gravity Forms widget output on the frontend.
