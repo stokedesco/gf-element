@@ -274,38 +274,55 @@ array(
 
                $this->end_controls_section();
 
-                $this->add_control(
-                        'heading_title_color',
-                        array(
-                                'label'     => __( 'Title Color', 'gk-gravity-forms-elementor-widget' ),
-                                'type'      => Controls_Manager::COLOR,
-                                'selectors' => array(
-                                        '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_heading .gform_title' => 'color: {{VALUE}};',
-                                ),
-                        )
-                );
+               $this->start_controls_section(
+                       'section_heading',
+                       array(
+                               'label' => __( 'Form Heading & Description', 'gk-gravity-forms-elementor-widget' ),
+                               'tab'   => Controls_Manager::TAB_STYLE,
+                       )
+               );
 
-                $this->add_group_control(
-                        Group_Control_Typography::get_type(),
-                        array(
-                                'name'     => 'heading_description_typography',
-                                'label'    => __( 'Description Typography', 'gk-gravity-forms-elementor-widget' ),
-                                'selector' => '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_heading .gform_description',
-                        )
-                );
+               $this->add_group_control(
+                       Group_Control_Typography::get_type(),
+                       array(
+                               'name'     => 'heading_title_typography',
+                               'label'    => __( 'Title Typography', 'gk-gravity-forms-elementor-widget' ),
+                               'selector' => '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_heading .gform_title',
+                       )
+               );
 
-                $this->add_control(
-                        'heading_description_color',
-                        array(
-                                'label'     => __( 'Description Color', 'gk-gravity-forms-elementor-widget' ),
-                                'type'      => Controls_Manager::COLOR,
-                                'selectors' => array(
-                                        '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_heading .gform_description' => 'color: {{VALUE}};',
-                                ),
-                        )
-                );
+               $this->add_control(
+                       'heading_title_color',
+                       array(
+                               'label'     => __( 'Title Color', 'gk-gravity-forms-elementor-widget' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_heading .gform_title' => 'color: {{VALUE}};',
+                               ),
+                       )
+               );
 
-                $this->end_controls_section();
+               $this->add_group_control(
+                       Group_Control_Typography::get_type(),
+                       array(
+                               'name'     => 'heading_description_typography',
+                               'label'    => __( 'Description Typography', 'gk-gravity-forms-elementor-widget' ),
+                               'selector' => '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_heading .gform_description',
+                       )
+               );
+
+               $this->add_control(
+                       'heading_description_color',
+                       array(
+                               'label'     => __( 'Description Color', 'gk-gravity-forms-elementor-widget' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_heading .gform_description' => 'color: {{VALUE}};',
+                               ),
+                       )
+               );
+
+               $this->end_controls_section();
 
                 $this->start_controls_section(
                         'section_form_style',
