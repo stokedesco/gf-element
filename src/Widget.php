@@ -159,13 +159,23 @@ array(
 '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio label',
 )
 );
-               $file_upload_button = implode(
-                       ', ',
-                       array(
-                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_button_select_files',
-                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' input[type="file"]::-webkit-file-upload-button',
-                       )
-               );
+                $file_upload_button = implode(
+                        ', ',
+                        array(
+                                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_button_select_files',
+                                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' input[type="file"]::-webkit-file-upload-button',
+                        )
+                );
+
+                $buttons = implode(
+                        ', ',
+                        array(
+                                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_button',
+                                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_next_button',
+                                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_previous_button',
+                                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_save_link',
+                        )
+                );
 
 
                $this->start_controls_section(
@@ -705,13 +715,82 @@ $textarea => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LE
 );
 
 $this->end_controls_section();
-		$this->start_controls_section(
-			'section_file_upload',
-			array(
-				'label' => __( 'File Upload Button', 'gk-gravity-forms-elementor-widget' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
-			),
-		);
+
+                $this->start_controls_section(
+                        'section_buttons',
+                        array(
+                                'label' => __( 'Buttons', 'gk-gravity-forms-elementor-widget' ),
+                                'tab'   => Controls_Manager::TAB_STYLE,
+                        )
+                );
+
+                $this->add_group_control(
+                        Group_Control_Typography::get_type(),
+                        array(
+                                'name'     => 'buttons_typography',
+                                'selector' => $buttons,
+                        )
+                );
+
+                $this->add_control(
+                        'buttons_text_color',
+                        array(
+                                'label'     => __( 'Text Color', 'gk-gravity-forms-elementor-widget' ),
+                                'type'      => Controls_Manager::COLOR,
+                                'selectors' => array(
+                                        $buttons => 'color: {{VALUE}};',
+                                ),
+                        )
+                );
+
+                $this->add_control(
+                        'buttons_hover_text_color',
+                        array(
+                                'label'     => __( 'Hover Text Color', 'gk-gravity-forms-elementor-widget' ),
+                                'type'      => Controls_Manager::COLOR,
+                                'selectors' => array(
+                                        str_replace( ', ', ':hover, ', $buttons ) . ':hover' => 'color: {{VALUE}};',
+                                ),
+                        )
+                );
+
+                $this->add_group_control(
+                        Group_Control_Background::get_type(),
+                        array(
+                                'name'     => 'buttons_background',
+                                'selector' => $buttons,
+                        )
+                );
+
+                $this->add_group_control(
+                        Group_Control_Border::get_type(),
+                        array(
+                                'name'     => 'buttons_border',
+                                'selector' => $buttons,
+                        )
+                );
+
+                $this->add_responsive_control(
+                        'buttons_padding',
+                        array(
+                                'label'      => __( 'Padding', 'gk-gravity-forms-elementor-widget' ),
+                                'type'       => Controls_Manager::DIMENSIONS,
+                                'size_units' => array( 'px', 'em', '%' ),
+                                'selectors'  => array(
+                                        $buttons => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                                ),
+                        )
+                );
+
+                $this->end_controls_section();
+
+                $this->start_controls_section(
+                        'section_file_upload',
+                        array(
+                                'label' => __( 'File Upload Button', 'gk-gravity-forms-elementor-widget' ),
+                                'tab'   => Controls_Manager::TAB_STYLE,
+                        ),
+                );
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
