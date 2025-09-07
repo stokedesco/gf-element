@@ -92,7 +92,60 @@ class FieldShortcodes {
         return $out;
     }
 
+
+    private static function get_forms() {
+        static $forms = null;
+        if ( null !== $forms ) {
+            return $forms;
+        }
+
+        $forms = [];
+
+        if ( class_exists( GFAPI::class ) ) {
+            $list = GFAPI::get_forms();
+            if ( is_array( $list ) ) {
+                foreach ( $list as $f ) {
+                    $form_id = (int) $f['id'];
+                    $forms[ $form_id ] = [
+                        'title'  => $f['title'],
+                        'fields' => [],
+                    ];
+
+                    $meta = GFAPI::get_form( $form_id );
+                    if ( $meta && isset( $meta['fields'] ) ) {
+                        foreach ( $meta['fields'] as $field ) {
+                            $fid   = (string) $field['id'];
+                            $label = isset( $field['label'] ) ? $field['label'] : $fid;
+                            $forms[ $form_id ]['fields'][] = [
+                                'id'    => $fid,
+                                'label' => $label . ' (' . $fid . ')',
+                            ];
+                            if ( ! empty( $field['inputs'] ) ) {
+                                foreach ( $field['inputs'] as $input ) {
+                                    $iid    = (string) $input['id'];
+                                    $ilabel = isset( $input['label'] ) ? $input['label'] : $iid;
+                                    $forms[ $form_id ]['fields'][] = [
+                                        'id'    => $iid,
+                                        'label' => $label . ': ' . $ilabel . ' (' . $iid . ')',
+                                    ];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $forms;
+    }
+
     /**
+     * Register admin menu.
+     */
+    public static function register_menu() {
+        add_submenu_page(
+            'gf_edit_forms',
+
      * Register admin menu.
      */
     public static function register_menu() {
@@ -111,7 +164,11 @@ class FieldShortcodes {
      * @param string $hook Current page hook.
      */
     public static function admin_assets( $hook ) {
+
+        if ( empty( $_GET['page'] ) || 'stkc-gf-field-shortcodes' !== $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
         if ( 'settings_page_stkc-gf-field-shortcodes' !== $hook ) {
+
             return;
         }
 
@@ -122,6 +179,17 @@ class FieldShortcodes {
             '1.0.0',
             true
         );
+
+
+        wp_localize_script(
+            'stkc-gf-sc-admin',
+            'stkcGfScData',
+            [
+                'forms' => self::get_forms(),
+                'i18n'  => [ 'selectField' => esc_html__( 'Select a field', 'stoke-gf-elementor' ) ],
+            ]
+        );
+
     }
 
     /**
@@ -131,6 +199,8 @@ class FieldShortcodes {
         $opt      = (array) get_option( 'stkc_gf_sc', [] );
         $enabled  = ! empty( $opt['enabled'] );
         $mappings = ! empty( $opt['mappings'] ) && is_array( $opt['mappings'] ) ? $opt['mappings'] : [];
+        $forms    = self::get_forms();
+
         ?>
         <div class="wrap">
             <h1><?php esc_html_e( 'GF Field Shortcodes', 'stoke-gf-elementor' ); ?></h1>
@@ -155,8 +225,13 @@ class FieldShortcodes {
                 <table class="widefat stkc-gf-mappings">
                     <thead>
                     <tr>
+
+                        <th><?php esc_html_e( 'Form', 'stoke-gf-elementor' ); ?></th>
+                        <th><?php esc_html_e( 'Field', 'stoke-gf-elementor' ); ?></th>
+
                         <th><?php esc_html_e( 'Form ID', 'stoke-gf-elementor' ); ?></th>
                         <th><?php esc_html_e( 'Field ID', 'stoke-gf-elementor' ); ?></th>
+
                         <th><?php esc_html_e( 'Shortcode Tag', 'stoke-gf-elementor' ); ?></th>
                         <th><?php esc_html_e( 'Source', 'stoke-gf-elementor' ); ?></th>
                         <th></th>
@@ -165,14 +240,37 @@ class FieldShortcodes {
                     <tbody>
                     <?php foreach ( $mappings as $i => $m ) :
                         $form   = (int) $m['form_id'];
+
+                        $field  = (string) $m['field_id'];
+
                         $field  = esc_attr( $m['field_id'] );
+
                         $tag    = esc_attr( $m['tag'] );
                         $source = esc_attr( $m['source'] );
                         $preview = sprintf( '?eid={entry_id}&f%d_%s={Field:%s}', $form, $field, $field );
                         ?>
                         <tr>
+
+                            <td>
+                                <select name="stkc_gf_sc[mappings][<?php echo esc_attr( $i ); ?>][form_id]" class="stkc-form-select">
+                                    <?php foreach ( $forms as $fid => $fdata ) : ?>
+                                        <option value="<?php echo esc_attr( $fid ); ?>" <?php selected( $form, $fid ); ?>><?php echo esc_html( $fdata['title'] . ' (' . $fid . ')' ); ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="stkc_gf_sc[mappings][<?php echo esc_attr( $i ); ?>][field_id]" class="stkc-field-select">
+                                    <?php if ( isset( $forms[ $form ] ) ) :
+                                        foreach ( $forms[ $form ]['fields'] as $f ) : ?>
+                                            <option value="<?php echo esc_attr( $f['id'] ); ?>" <?php selected( $field, $f['id'] ); ?>><?php echo esc_html( $f['label'] ); ?></option>
+                                        <?php endforeach;
+                                    endif; ?>
+                                </select>
+                            </td>
+
                             <td><input type="number" class="small-text" min="1" name="stkc_gf_sc[mappings][<?php echo esc_attr( $i ); ?>][form_id]" value="<?php echo esc_attr( $form ); ?>" /></td>
                             <td><input type="text" class="small-text" name="stkc_gf_sc[mappings][<?php echo esc_attr( $i ); ?>][field_id]" value="<?php echo esc_attr( $field ); ?>" /></td>
+
                             <td><input type="text" class="regular-text" name="stkc_gf_sc[mappings][<?php echo esc_attr( $i ); ?>][tag]" value="<?php echo esc_attr( $tag ); ?>" /></td>
                             <td>
                                 <select name="stkc_gf_sc[mappings][<?php echo esc_attr( $i ); ?>][source]">
@@ -198,8 +296,21 @@ class FieldShortcodes {
 
         <script type="text/html" id="stkc-gf-sc-row-template">
             <tr>
+
+                <td>
+                    <select name="stkc_gf_sc[mappings][__index__][form_id]" class="stkc-form-select">
+                        <?php foreach ( $forms as $fid => $fdata ) : ?>
+                            <option value="<?php echo esc_attr( $fid ); ?>"><?php echo esc_html( $fdata['title'] . ' (' . $fid . ')' ); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+                <td>
+                    <select name="stkc_gf_sc[mappings][__index__][field_id]" class="stkc-field-select"></select>
+                </td>
+
                 <td><input type="number" class="small-text" min="1" name="stkc_gf_sc[mappings][__index__][form_id]" value="" /></td>
                 <td><input type="text" class="small-text" name="stkc_gf_sc[mappings][__index__][field_id]" value="" /></td>
+
                 <td><input type="text" class="regular-text" name="stkc_gf_sc[mappings][__index__][tag]" value="" /></td>
                 <td>
                     <select name="stkc_gf_sc[mappings][__index__][source]">
