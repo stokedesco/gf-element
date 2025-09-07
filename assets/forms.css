@@ -1,7 +1,11 @@
 /* Styling adjustments for Stoke Gravity Forms for Elementor fields */
 .sge-gravity-form input,
 .sge-gravity-form select,
-.sge-gravity-form textarea {
+.sge-gravity-form textarea,
+.sge-gravity-form .gform_button,
+.sge-gravity-form .gform_next_button,
+.sge-gravity-form .gform_previous_button,
+.sge-gravity-form .gform_save_link {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -14,7 +18,11 @@
 
 .sge-gravity-form input:focus,
 .sge-gravity-form select:focus,
-.sge-gravity-form textarea:focus {
+.sge-gravity-form textarea:focus,
+.sge-gravity-form .gform_button:focus,
+.sge-gravity-form .gform_next_button:focus,
+.sge-gravity-form .gform_previous_button:focus,
+.sge-gravity-form .gform_save_link:focus {
     box-shadow: none !important;
     outline: none !important;
     -webkit-box-shadow: none !important;
