@@ -159,6 +159,14 @@ array(
 '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio label',
 )
 );
+               $file_upload_button = implode(
+                       ', ',
+                       array(
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_button_select_files',
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' input[type="file"]::-webkit-file-upload-button',
+                       )
+               );
+
 
                $this->start_controls_section(
                        'section_form',
@@ -695,6 +703,52 @@ $textarea => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LE
 );
 
 $this->end_controls_section();
+		$this->start_controls_section(
+			'section_file_upload',
+			array(
+				'label' => __( 'File Upload Button', 'gk-gravity-forms-elementor-widget' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			),
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'file_upload_typography',
+				'selector' => $file_upload_button,
+			),
+		);
+
+		$this->add_control(
+			'file_upload_text_color',
+			array(
+				'label'     => __( 'Text Color', 'gk-gravity-forms-elementor-widget' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$file_upload_button => 'color: {{VALUE}};',
+				),
+			),
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'     => 'file_upload_background',
+				'selector' => $file_upload_button,
+			),
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'     => 'file_upload_border',
+				'selector' => $file_upload_button,
+			),
+		);
+
+		$this->end_controls_section();
+
+
 }
 
 	/**
