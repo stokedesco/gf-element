@@ -418,13 +418,7 @@ array(
 			)
 		);
 
-                $this->add_group_control(
-                        Group_Control_Box_Shadow::get_type(),
-                        array(
-                                'name'     => 'form_box_shadow',
-                                'selector' => '{{WRAPPER}} .' . self::ELEMENT_KEY,
-                        )
-                );
+
 
                $this->end_controls_section();
 
