@@ -148,21 +148,13 @@ class Widget extends Widget_Base {
 
 $textarea = '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield .ginput_container textarea';
 
-$checks_radios = implode(
-        ', ',
-        array(
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]',
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]',
-        )
-);
-
 // Pseudo-element selectors using the label for custom checkboxes and radios.
 $checks_radios_before = implode(
-        ', ',
-        array(
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"] + label::before',
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"] + label::before',
-        )
+       ', ',
+       array(
+               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"] + label::before',
+               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"] + label::before',
+       )
 );
 
 $checks_radios_checked_before = implode(
@@ -220,15 +212,17 @@ $sub_labels = implode(
                         )
                 );
 
-                $buttons = implode(
+                $submit_button = implode(
                         ', ',
                         array(
                                 '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_button',
-                                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_next_button',
-                                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_previous_button',
                                 '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_save_link',
                         )
                 );
+
+                $next_button = '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_next_button';
+
+                $previous_button = '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_previous_button';
 
 
                $this->start_controls_section(
@@ -703,19 +697,6 @@ $this->end_controls_section();
                         )
                         );
 
-                        // Remove default appearance and create pseudo elements.
-                        $this->add_control(
-                                'checks_radios_reset_native',
-                                array(
-                                        'type'      => Controls_Manager::HIDDEN,
-                                        'selectors' => array(
-                                                $checks_radios       => 'opacity: 0; position: absolute;',
-                                                $checks_radios_labels => 'position: relative; display: inline-block; padding-left: 1.5em;',
-                                                $checks_radios_before => 'content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 1em; height: 1em;',
-                                        ),
-                                )
-                        );
-
                         // Accent color control for check mark / selection.
                         $this->add_control(
                                 'checks_radios_accent_color',
@@ -749,10 +730,9 @@ $this->end_controls_section();
                         $this->add_control(
                                 'checks_radios_inactive_color',
                                 array(
-                                        'label'     => __( 'Inactive Color', 'stoke-gf-elementor' ),
+                                        'label'     => __( 'Inactive Border Color', 'stoke-gf-elementor' ),
                                         'type'      => Controls_Manager::COLOR,
                                         'selectors' => array(
-                                                $checks_radios_unchecked       => 'color: {{VALUE}};',
                                                 $checks_radios_unchecked_before => 'border-color: {{VALUE}};',
                                         ),
                                 )
@@ -780,10 +760,9 @@ $this->end_controls_section();
                         $this->add_control(
                                 'checks_radios_active_color',
                                 array(
-                                        'label'     => __( 'Active Color', 'stoke-gf-elementor' ),
+                                        'label'     => __( 'Active Border Color', 'stoke-gf-elementor' ),
                                         'type'      => Controls_Manager::COLOR,
                                         'selectors' => array(
-                                                $checks_radios_checked       => 'color: {{VALUE}};',
                                                 $checks_radios_checked_before => 'border-color: {{VALUE}};',
                                         ),
                                 )
@@ -809,16 +788,16 @@ $this->end_controls_section();
 			)
 			);
 			
-			$this->add_control(
-			'checks_radios_label_color',
-			array(
-			'label'     => __( 'Label Color', 'stoke-gf-elementor' ),
-			'type'      => Controls_Manager::COLOR,
-			'selectors' => array(
-			$checks_radios_labels => 'color: {{VALUE}};',
-			),
-			)
-			);
+                        $this->add_control(
+                        'checks_radios_label_color',
+                        array(
+                        'label'     => __( 'Label Text Color', 'stoke-gf-elementor' ),
+                        'type'      => Controls_Manager::COLOR,
+                        'selectors' => array(
+                        $checks_radios_labels => 'color: {{VALUE}} !important;',
+                        ),
+                        )
+                        );
 			
 			$this->add_responsive_control(
 			'checks_radios_label_spacing',
@@ -837,7 +816,7 @@ $this->end_controls_section();
 			),
 			),
                         'selectors'  => array(
-                        $checks_radios_labels => 'padding-left: {{SIZE}}{{UNIT}};',
+                        $checks_radios_labels => 'padding-left: {{SIZE}}{{UNIT}} !important;',
                         ),
 			)
 			);
@@ -937,9 +916,9 @@ $textarea => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LE
 $this->end_controls_section();
 
                 $this->start_controls_section(
-                        'section_buttons',
+                        'section_submit_button',
                         array(
-                                'label' => __( 'Buttons', 'stoke-gf-elementor' ),
+                                'label' => __( 'Submit Button', 'stoke-gf-elementor' ),
                                 'tab'   => Controls_Manager::TAB_STYLE,
                         )
                 );
@@ -947,29 +926,29 @@ $this->end_controls_section();
                 $this->add_group_control(
                         Group_Control_Typography::get_type(),
                         array(
-                                'name'     => 'buttons_typography',
-                                'selector' => $buttons,
+                                'name'     => 'submit_button_typography',
+                                'selector' => $submit_button,
                         )
                 );
 
                 $this->add_control(
-                        'buttons_text_color',
+                        'submit_button_text_color',
                         array(
                                 'label'     => __( 'Text Color', 'stoke-gf-elementor' ),
                                 'type'      => Controls_Manager::COLOR,
                                 'selectors' => array(
-                                        $buttons => 'color: {{VALUE}};',
+                                        $submit_button => 'color: {{VALUE}} !important;',
                                 ),
                         )
                 );
 
                 $this->add_control(
-                        'buttons_hover_text_color',
+                        'submit_button_hover_text_color',
                         array(
                                 'label'     => __( 'Hover Text Color', 'stoke-gf-elementor' ),
                                 'type'      => Controls_Manager::COLOR,
                                 'selectors' => array(
-                                        str_replace( ', ', ':hover, ', $buttons ) . ':hover' => 'color: {{VALUE}};',
+                                        str_replace( ', ', ':hover, ', $submit_button ) . ':hover' => 'color: {{VALUE}} !important;',
                                 ),
                         )
                 );
@@ -977,48 +956,226 @@ $this->end_controls_section();
                 $this->add_group_control(
                         Group_Control_Background::get_type(),
                         array(
-                                'name'     => 'buttons_background',
-                                'selector' => $buttons,
+                                'name'     => 'submit_button_background',
+                                'selector' => $submit_button,
                         )
                 );
 
                 $this->add_group_control(
                         Group_Control_Background::get_type(),
                         array(
-                                'name'     => 'buttons_hover_background',
+                                'name'     => 'submit_button_hover_background',
                                 'label'    => __( 'Hover Background', 'stoke-gf-elementor' ),
-                                'selector' => str_replace( ', ', ':hover, ', $buttons ) . ':hover',
+                                'selector' => str_replace( ', ', ':hover, ', $submit_button ) . ':hover',
                         )
                 );
 
                 $this->add_group_control(
                         Group_Control_Border::get_type(),
                         array(
-                                'name'     => 'buttons_border',
-                                'selector' => $buttons,
+                                'name'     => 'submit_button_border',
+                                'selector' => $submit_button,
                         )
                 );
 
                $this->add_responsive_control(
-                       'buttons_border_radius',
+                       'submit_button_border_radius',
                        array(
                                'label'      => __( 'Border Radius', 'stoke-gf-elementor' ),
                                'type'       => Controls_Manager::DIMENSIONS,
                                'size_units' => array( 'px', 'em', '%' ),
                                'selectors'  => array(
-                                       $buttons => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                                       $submit_button => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                                ),
                        )
                );
 
                 $this->add_responsive_control(
-                        'buttons_padding',
+                        'submit_button_padding',
                         array(
                                 'label'      => __( 'Padding', 'stoke-gf-elementor' ),
                                 'type'       => Controls_Manager::DIMENSIONS,
                                 'size_units' => array( 'px', 'em', '%' ),
                                 'selectors'  => array(
-                                        $buttons => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                                        $submit_button => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+                                ),
+                        )
+                );
+
+                $this->end_controls_section();
+
+                $this->start_controls_section(
+                        'section_next_button',
+                        array(
+                                'label' => __( 'Next Button', 'stoke-gf-elementor' ),
+                                'tab'   => Controls_Manager::TAB_STYLE,
+                        )
+                );
+
+                $this->add_group_control(
+                        Group_Control_Typography::get_type(),
+                        array(
+                                'name'     => 'next_button_typography',
+                                'selector' => $next_button,
+                        )
+                );
+
+                $this->add_control(
+                        'next_button_text_color',
+                        array(
+                                'label'     => __( 'Text Color', 'stoke-gf-elementor' ),
+                                'type'      => Controls_Manager::COLOR,
+                                'selectors' => array(
+                                        $next_button => 'color: {{VALUE}} !important;',
+                                ),
+                        )
+                );
+
+                $this->add_control(
+                        'next_button_hover_text_color',
+                        array(
+                                'label'     => __( 'Hover Text Color', 'stoke-gf-elementor' ),
+                                'type'      => Controls_Manager::COLOR,
+                                'selectors' => array(
+                                        $next_button . ':hover' => 'color: {{VALUE}} !important;',
+                                ),
+                        )
+                );
+
+                $this->add_group_control(
+                        Group_Control_Background::get_type(),
+                        array(
+                                'name'     => 'next_button_background',
+                                'selector' => $next_button,
+                        )
+                );
+
+                $this->add_group_control(
+                        Group_Control_Background::get_type(),
+                        array(
+                                'name'     => 'next_button_hover_background',
+                                'label'    => __( 'Hover Background', 'stoke-gf-elementor' ),
+                                'selector' => $next_button . ':hover',
+                        )
+                );
+
+                $this->add_group_control(
+                        Group_Control_Border::get_type(),
+                        array(
+                                'name'     => 'next_button_border',
+                                'selector' => $next_button,
+                        )
+                );
+
+               $this->add_responsive_control(
+                       'next_button_border_radius',
+                       array(
+                               'label'      => __( 'Border Radius', 'stoke-gf-elementor' ),
+                               'type'       => Controls_Manager::DIMENSIONS,
+                               'size_units' => array( 'px', 'em', '%' ),
+                               'selectors'  => array(
+                                       $next_button => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+                               ),
+                       )
+               );
+
+                $this->add_responsive_control(
+                        'next_button_padding',
+                        array(
+                                'label'      => __( 'Padding', 'stoke-gf-elementor' ),
+                                'type'       => Controls_Manager::DIMENSIONS,
+                                'size_units' => array( 'px', 'em', '%' ),
+                                'selectors'  => array(
+                                        $next_button => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+                                ),
+                        )
+                );
+
+                $this->end_controls_section();
+
+                $this->start_controls_section(
+                        'section_previous_button',
+                        array(
+                                'label' => __( 'Previous Button', 'stoke-gf-elementor' ),
+                                'tab'   => Controls_Manager::TAB_STYLE,
+                        )
+                );
+
+                $this->add_group_control(
+                        Group_Control_Typography::get_type(),
+                        array(
+                                'name'     => 'previous_button_typography',
+                                'selector' => $previous_button,
+                        )
+                );
+
+                $this->add_control(
+                        'previous_button_text_color',
+                        array(
+                                'label'     => __( 'Text Color', 'stoke-gf-elementor' ),
+                                'type'      => Controls_Manager::COLOR,
+                                'selectors' => array(
+                                        $previous_button => 'color: {{VALUE}} !important;',
+                                ),
+                        )
+                );
+
+                $this->add_control(
+                        'previous_button_hover_text_color',
+                        array(
+                                'label'     => __( 'Hover Text Color', 'stoke-gf-elementor' ),
+                                'type'      => Controls_Manager::COLOR,
+                                'selectors' => array(
+                                        $previous_button . ':hover' => 'color: {{VALUE}} !important;',
+                                ),
+                        )
+                );
+
+                $this->add_group_control(
+                        Group_Control_Background::get_type(),
+                        array(
+                                'name'     => 'previous_button_background',
+                                'selector' => $previous_button,
+                        )
+                );
+
+                $this->add_group_control(
+                        Group_Control_Background::get_type(),
+                        array(
+                                'name'     => 'previous_button_hover_background',
+                                'label'    => __( 'Hover Background', 'stoke-gf-elementor' ),
+                                'selector' => $previous_button . ':hover',
+                        )
+                );
+
+                $this->add_group_control(
+                        Group_Control_Border::get_type(),
+                        array(
+                                'name'     => 'previous_button_border',
+                                'selector' => $previous_button,
+                        )
+                );
+
+               $this->add_responsive_control(
+                       'previous_button_border_radius',
+                       array(
+                               'label'      => __( 'Border Radius', 'stoke-gf-elementor' ),
+                               'type'       => Controls_Manager::DIMENSIONS,
+                               'size_units' => array( 'px', 'em', '%' ),
+                               'selectors'  => array(
+                                       $previous_button => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+                               ),
+                       )
+               );
+
+                $this->add_responsive_control(
+                        'previous_button_padding',
+                        array(
+                                'label'      => __( 'Padding', 'stoke-gf-elementor' ),
+                                'type'       => Controls_Manager::DIMENSIONS,
+                                'size_units' => array( 'px', 'em', '%' ),
+                                'selectors'  => array(
+                                        $previous_button => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                                 ),
                         )
                 );
