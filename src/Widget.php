@@ -222,26 +222,62 @@ class Widget extends Widget_Base {
 			)
 		);
 
-		$this->end_controls_section();
+                $this->end_controls_section();
 
-		$this->start_controls_section(
-			'section_form_style',
-			array(
-				'label' => __( 'Form', 'gk-gravity-forms-elementor-widget' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
-			)
-		);
+                        )
+                );
 
-		$this->add_control(
-			'form_background_color',
-			array(
-				'label'     => __( 'Background Color', 'gk-gravity-forms-elementor-widget' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .' . self::ELEMENT_KEY => 'background-color: {{VALUE}};',
-				),
-			)
-		);
+                $this->add_control(
+                        'heading_title_color',
+                        array(
+                                'label'     => __( 'Title Color', 'gk-gravity-forms-elementor-widget' ),
+                                'type'      => Controls_Manager::COLOR,
+                                'selectors' => array(
+                                        '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_heading .gform_title' => 'color: {{VALUE}};',
+                                ),
+                        )
+                );
+
+                $this->add_group_control(
+                        Group_Control_Typography::get_type(),
+                        array(
+                                'name'     => 'heading_description_typography',
+                                'label'    => __( 'Description Typography', 'gk-gravity-forms-elementor-widget' ),
+                                'selector' => '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_heading .gform_description',
+                        )
+                );
+
+                $this->add_control(
+                        'heading_description_color',
+                        array(
+                                'label'     => __( 'Description Color', 'gk-gravity-forms-elementor-widget' ),
+                                'type'      => Controls_Manager::COLOR,
+                                'selectors' => array(
+                                        '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_heading .gform_description' => 'color: {{VALUE}};',
+                                ),
+                        )
+                );
+
+                $this->end_controls_section();
+
+                $this->start_controls_section(
+                        'section_form_style',
+                        array(
+                                'label' => __( 'Form', 'gk-gravity-forms-elementor-widget' ),
+                                'tab'   => Controls_Manager::TAB_STYLE,
+                        )
+                );
+
+                $this->add_control(
+                        'form_background_color',
+                        array(
+                                'label'     => __( 'Background Color', 'gk-gravity-forms-elementor-widget' ),
+                                'type'      => Controls_Manager::COLOR,
+                                'selectors' => array(
+                                        '{{WRAPPER}} .' . self::ELEMENT_KEY => 'background-color: {{VALUE}};',
+                                ),
+                        )
+                );
 
 		$this->add_responsive_control(
 			'form_alignment',
@@ -335,56 +371,50 @@ class Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			array(
-				'name'     => 'form_box_shadow',
-				'selector' => '{{WRAPPER}} .' . self::ELEMENT_KEY,
-			),
-		);
 
-		$this->end_controls_section();
 
-		$this->start_controls_section(
-			'section_labels',
-			array(
-				'label' => __( 'Labels', 'gk-gravity-forms-elementor-widget' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
-			),
-		);
+               $this->end_controls_section();
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'label_typography',
-				'selector' => '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield_label',
-			),
-		);
+               $this->start_controls_section(
+                       'section_labels',
+                       array(
+                               'label' => __( 'Labels', 'gk-gravity-forms-elementor-widget' ),
+                               'tab'   => Controls_Manager::TAB_STYLE,
+                       )
+               );
 
-		$this->add_control(
-			'label_color',
-			array(
-				'label'     => __( 'Text Color', 'gk-gravity-forms-elementor-widget' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield_label' => 'color: {{VALUE}};',
-				),
-			),
-		);
+               $this->add_group_control(
+                       Group_Control_Typography::get_type(),
+                       array(
+                               'name'     => 'label_typography',
+                               'selector' => '{{WRAPPER}} .gk-gravity-form .gfield_label',
+                       )
+               );
 
-		$this->add_control(
-			'required_color',
-			array(
-				'label'     => __( 'Required Color', 'gk-gravity-forms-elementor-widget' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield_required' => 'color: {{VALUE}};',
-				),
-			),
-		);
+               $this->add_control(
+                       'label_color',
+                       array(
+                               'label'     => __( 'Text Color', 'gk-gravity-forms-elementor-widget' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       '{{WRAPPER}} .gk-gravity-form .gfield_label' => 'color: {{VALUE}};',
+                               ),
+                       )
+               );
 
-		$this->end_controls_section();
-	}
+               $this->add_control(
+                       'required_color',
+                       array(
+                               'label'     => __( 'Required Color', 'gk-gravity-forms-elementor-widget' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       '{{WRAPPER}} .gk-gravity-form .gfield_required' => 'color: {{VALUE}};',
+                               ),
+                       )
+               );
+
+               $this->end_controls_section();
+        }
 
 	/**
 	 * Renders Gravity Forms widget output on the frontend.
