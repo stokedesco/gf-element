@@ -1025,28 +1025,6 @@ $this->end_controls_section();
 
                 $this->end_controls_section();
 
-               $this->start_controls_section(
-                       'section_form_advanced',
-                       array(
-                               'label' => __( 'Advanced', 'stoke-gf-elementor' ),
-                               'tab'   => Controls_Manager::TAB_ADVANCED,
-                       )
-               );
-
-               $this->add_control(
-                       'tabindex',
-                       array(
-                               'label'       => __( 'Tab Index', 'stoke-gf-elementor' ),
-                               'type'        => Controls_Manager::NUMBER,
-                               'default'     => 0,
-                               'min'         => 0,
-                               'step'        => 1,
-                               'description' => __( 'Set the starting tabindex for the form.', 'stoke-gf-elementor' ),
-                       )
-               );
-
-              $this->end_controls_section();
-
         }
 
         /**
@@ -1160,9 +1138,8 @@ $this->end_controls_section();
 			return;
 		}
 
-                $title       = 'yes' === $settings['title'];
-                $description = 'yes' === $settings['description'];
-                $tabindex    = (int) $settings['tabindex'];
+               $title       = 'yes' === $settings['title'];
+               $description = 'yes' === $settings['description'];
 
                $ajax = 'yes' === $settings['ajax'];
 
@@ -1176,7 +1153,7 @@ $this->end_controls_section();
             '<div {attribute}>{form}</div>',
             array(
                                '{attribute}' => $this->get_render_attribute_string( self::ELEMENT_KEY ),
-                               '{form}'      => gravity_form( $form_id, $title, $description, false, null, $ajax, $tabindex, false ),
+                               '{form}'      => gravity_form( $form_id, $title, $description, false, null, $ajax, 0, false ),
                        )
        );
 
