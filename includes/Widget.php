@@ -1034,24 +1034,6 @@ $this->end_controls_section();
                );
 
                $this->add_control(
-                       'field_values',
-                       array(
-                               'label'       => __( 'Field Values', 'stoke-gf-elementor' ),
-                               'type'        => Controls_Manager::TEXTAREA,
-                               'default'     => '',
-                               // translators: Do not translate placeholders in square brackets. They are placeholders.
-                               'description' => strtr(
-                    __( 'Enter field values in the format: [example]. [link]Learn more.[/link]', 'stoke-gf-elementor' ),
-                    array(
-                                               '[example]' => '<code>input_1=First Name&amp;input_2=Last Name</code>',
-                                               '[link]'    => '<a href="https://docs.gravityforms.com/allow-field-to-be-populated-dynamically/#h-block" target="_blank">',
-                                               '[/link]'   => '<span class="screen-reader-text">' . esc_attr__( '(This link opens in a new window.)', 'stoke-gf-elementor' ) . '</span></a>',
-                                       )
-               ),
-                       )
-               );
-
-               $this->add_control(
                        'tabindex',
                        array(
                                'label'       => __( 'Tab Index', 'stoke-gf-elementor' ),
@@ -1182,17 +1164,7 @@ $this->end_controls_section();
                 $description = 'yes' === $settings['description'];
                 $tabindex    = (int) $settings['tabindex'];
 
-                $field_values = null;
-
-		if ( ! empty( $settings['field_values'] ) ) {
-			$field_values = array();
-
-			parse_str( $settings['field_values'], $field_values );
-
-			$field_values = array_map( 'esc_html', $field_values );
-		}
-
-                $ajax = 'yes' === $settings['ajax'];
+               $ajax = 'yes' === $settings['ajax'];
 
                 if ( Plugin::$instance->editor->is_edit_mode() ) {
                         $ajax = true; // Force-enable Ajax in the editor to prevent JS errors, caused in part by the $form_scripts_body contents.
@@ -1203,10 +1175,10 @@ $this->end_controls_section();
                 $template = strtr(
             '<div {attribute}>{form}</div>',
             array(
-                                '{attribute}' => $this->get_render_attribute_string( self::ELEMENT_KEY ),
-                                '{form}'      => gravity_form( $form_id, $title, $description, false, $field_values, $ajax, $tabindex, false ),
-                        )
-        );
+                               '{attribute}' => $this->get_render_attribute_string( self::ELEMENT_KEY ),
+                               '{form}'      => gravity_form( $form_id, $title, $description, false, null, $ajax, $tabindex, false ),
+                       )
+       );
 
                 echo $template; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
