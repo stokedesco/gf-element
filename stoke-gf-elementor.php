@@ -30,7 +30,9 @@ add_filter(
     function ( $links ) {
         $links[] = sprintf(
             '<a href="%s">%s</a>',
-            esc_url( admin_url( 'admin.php?page=gf_edit_forms&view=stkc-gf-field-shortcodes' ) ),
+
+            esc_url( admin_url( 'admin.php?page=stkc-gf-field-shortcodes' ) ),
+
             esc_html__( 'Settings', 'stoke-gf-elementor' )
         );
         return $links;

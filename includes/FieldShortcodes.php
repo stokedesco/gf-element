@@ -150,7 +150,8 @@ class FieldShortcodes {
             esc_html__( 'GF Field Shortcodes', 'stoke-gf-elementor' ),
             'manage_options',
             'stkc-gf-field-shortcodes',
-            [ __CLASS__, 'render_page' ]
+            [ __CLASS__, 'render_page' ],
+            10
         );
     }
 
