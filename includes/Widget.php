@@ -18,7 +18,11 @@ use Elementor\Widget_Base;
 use GFAPI;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+        exit; // Exit if accessed directly.
+}
+
+if ( ! class_exists( Widget_Base::class ) ) {
+        return;
 }
 
 /**
