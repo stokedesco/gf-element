@@ -413,7 +413,7 @@ class Widget extends Widget_Base {
                         $ajax = true; // Force-enable Ajax in the editor to prevent JS errors, caused in part by the $form_scripts_body contents.
                 }
 
-                $this->add_render_attribute( self::ELEMENT_KEY, 'class', self::ELEMENT_KEY );
+                $this->add_render_attribute( self::ELEMENT_KEY, 'class', 'gk-gravity-form' );
 
                 $template = strtr(
             '<div {attribute}>{form}</div>',
