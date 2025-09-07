@@ -156,28 +156,61 @@ $checks_radios = implode(
         )
 );
 
+// Pseudo-element selectors using the label for custom checkboxes and radios.
+$checks_radios_before = implode(
+        ', ',
+        array(
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"] + label::before',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"] + label::before',
+        )
+);
+
+$checks_radios_checked_before = implode(
+        ', ',
+        array(
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]:checked + label::before',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]:checked + label::before',
+        )
+);
+
+$checks_radios_unchecked_before = implode(
+        ', ',
+        array(
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]:not(:checked) + label::before',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]:not(:checked) + label::before',
+        )
+);
+
+// Checked and unchecked selectors for text color adjustments.
 $checks_radios_checked = implode(
         ', ',
         array(
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]:checked',
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]:checked',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]:checked + label',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]:checked + label',
         )
 );
 
 $checks_radios_unchecked = implode(
         ', ',
         array(
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]:not(:checked)',
-                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]:not(:checked)',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox input[type="checkbox"]:not(:checked) + label',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio input[type="radio"]:not(:checked) + label',
         )
 );
 
 $checks_radios_labels = implode(
         ', ',
         array(
-'{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox label',
-'{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio label',
-)
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_checkbox label',
+                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_radio label',
+        )
+);
+$sub_labels = implode(
+       ', ',
+       array(
+               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_complex label',
+               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield_list th',
+       )
 );
                 $file_upload_button = implode(
                         ', ',
@@ -526,6 +559,48 @@ $checks_radios_labels = implode(
                        )
                );
 
+               $this->add_control(
+                       'sub_label_heading',
+                       array(
+                               'label'     => __( 'Sub Labels', 'stoke-gf-elementor' ),
+                               'type'      => Controls_Manager::HEADING,
+                               'separator' => 'before',
+                       )
+               );
+
+               $this->add_responsive_control(
+                       'sub_label_font_size',
+                       array(
+                               'label'      => __( 'Font Size', 'stoke-gf-elementor' ),
+                               'type'       => Controls_Manager::SLIDER,
+                               'size_units' => array( 'px', 'em' ),
+                               'range'      => array(
+                                       'px' => array(
+                                               'min' => 0,
+                                               'max' => 100,
+                                       ),
+                                       'em' => array(
+                                               'min' => 0,
+                                               'max' => 10,
+                                       ),
+                               ),
+                               'selectors'  => array(
+                                       $sub_labels => 'font-size: {{SIZE}}{{UNIT}};',
+                               ),
+                       )
+               );
+
+               $this->add_control(
+                       'sub_label_color',
+                       array(
+                               'label'     => __( 'Text Color', 'stoke-gf-elementor' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       $sub_labels => 'color: {{VALUE}};',
+                               ),
+                       )
+               );
+
                $this->end_controls_section();
 
                $this->start_controls_section(
@@ -620,84 +695,111 @@ $inputs => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT
 
 $this->end_controls_section();
 
-			$this->start_controls_section(
-			'section_checks_radios',
-			array(
-			'label' => __( 'Checkboxes & Radios', 'stoke-gf-elementor' ),
-			'tab'   => Controls_Manager::TAB_STYLE,
-			)
-			);
-			$this->add_group_control(
-			        Group_Control_Border::get_type(),
-			        array(
-			                'name'     => 'checks_radios_inactive_border',
-			                'selector' => $checks_radios_unchecked,
-			        )
-			);
+                        $this->start_controls_section(
+                        'section_checks_radios',
+                        array(
+                        'label' => __( 'Checkboxes & Radios', 'stoke-gf-elementor' ),
+                        'tab'   => Controls_Manager::TAB_STYLE,
+                        )
+                        );
+
+                        // Remove default appearance and create pseudo elements.
+                        $this->add_control(
+                                'checks_radios_reset_native',
+                                array(
+                                        'type'      => Controls_Manager::HIDDEN,
+                                        'selectors' => array(
+                                                $checks_radios       => 'opacity: 0; position: absolute;',
+                                                $checks_radios_labels => 'position: relative; display: inline-block; padding-left: 1.5em;',
+                                                $checks_radios_before => 'content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 1em; height: 1em;',
+                                        ),
+                                )
+                        );
+
+                        // Accent color control for check mark / selection.
+                        $this->add_control(
+                                'checks_radios_accent_color',
+                                array(
+                                        'label'     => __( 'Accent Color', 'stoke-gf-elementor' ),
+                                        'type'      => Controls_Manager::COLOR,
+                                        'selectors' => array(
+                                                $checks_radios_checked_before => 'background-color: {{VALUE}}; border-color: {{VALUE}};',
+                                        ),
+                                )
+                        );
+                        $this->add_group_control(
+                                Group_Control_Border::get_type(),
+                                array(
+                                        'name'     => 'checks_radios_inactive_border',
+                                        'selector' => $checks_radios_unchecked_before,
+                                )
+                        );
+
+                        $this->add_control(
+                                'checks_radios_inactive_background_color',
+                                array(
+                                        'label'     => __( 'Inactive Background Color', 'stoke-gf-elementor' ),
+                                        'type'      => Controls_Manager::COLOR,
+                                        'selectors' => array(
+                                                $checks_radios_unchecked_before => 'background-color: {{VALUE}};',
+                                        ),
+                                )
+                        );
+
+                        $this->add_control(
+                                'checks_radios_inactive_color',
+                                array(
+                                        'label'     => __( 'Inactive Color', 'stoke-gf-elementor' ),
+                                        'type'      => Controls_Manager::COLOR,
+                                        'selectors' => array(
+                                                $checks_radios_unchecked       => 'color: {{VALUE}};',
+                                                $checks_radios_unchecked_before => 'border-color: {{VALUE}};',
+                                        ),
+                                )
+                        );
+
+                        $this->add_group_control(
+                                Group_Control_Border::get_type(),
+                                array(
+                                        'name'     => 'checks_radios_active_border',
+                                        'selector' => $checks_radios_checked_before,
+                                )
+                        );
+
+                        $this->add_control(
+                                'checks_radios_active_background_color',
+                                array(
+                                        'label'     => __( 'Active Background Color', 'stoke-gf-elementor' ),
+                                        'type'      => Controls_Manager::COLOR,
+                                        'selectors' => array(
+                                                $checks_radios_checked_before => 'background-color: {{VALUE}};',
+                                        ),
+                                )
+                        );
+
+                        $this->add_control(
+                                'checks_radios_active_color',
+                                array(
+                                        'label'     => __( 'Active Color', 'stoke-gf-elementor' ),
+                                        'type'      => Controls_Manager::COLOR,
+                                        'selectors' => array(
+                                                $checks_radios_checked       => 'color: {{VALUE}};',
+                                                $checks_radios_checked_before => 'border-color: {{VALUE}};',
+                                        ),
+                                )
+                        );
 			
-			$this->add_control(
-			        'checks_radios_inactive_background_color',
-			        array(
-			                'label'     => __( 'Inactive Background Color', 'stoke-gf-elementor' ),
-			                'type'      => Controls_Manager::COLOR,
-			                'selectors' => array(
-			                        $checks_radios_unchecked => 'background-color: {{VALUE}};',
-			                ),
-			        )
-			);
-			
-			$this->add_control(
-			        'checks_radios_inactive_color',
-			        array(
-			                'label'     => __( 'Inactive Color', 'stoke-gf-elementor' ),
-			                'type'      => Controls_Manager::COLOR,
-			                'selectors' => array(
-			                        $checks_radios_unchecked => 'color: {{VALUE}};',
-			                ),
-			        )
-			);
-			
-			$this->add_group_control(
-			        Group_Control_Border::get_type(),
-			        array(
-			                'name'     => 'checks_radios_active_border',
-			                'selector' => $checks_radios_checked,
-			        )
-			);
-			
-			$this->add_control(
-			        'checks_radios_active_background_color',
-			        array(
-			                'label'     => __( 'Active Background Color', 'stoke-gf-elementor' ),
-			                'type'      => Controls_Manager::COLOR,
-			                'selectors' => array(
-			                        $checks_radios_checked => 'background-color: {{VALUE}};',
-			                ),
-			        )
-			);
-			
-			$this->add_control(
-			        'checks_radios_active_color',
-			        array(
-			                'label'     => __( 'Active Color', 'stoke-gf-elementor' ),
-			                'type'      => Controls_Manager::COLOR,
-			                'selectors' => array(
-			                        $checks_radios_checked => 'color: {{VALUE}};',
-			                ),
-			        )
-			);
-			
-			$this->add_responsive_control(
-			        'checks_radios_border_radius',
-			        array(
-			                'label'      => __( 'Border Radius', 'stoke-gf-elementor' ),
-			                'type'       => Controls_Manager::DIMENSIONS,
-			                'size_units' => array( 'px', 'em', '%' ),
-			                'selectors'  => array(
-			                        $checks_radios => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-			                ),
-			        )
-			);
+                        $this->add_responsive_control(
+                                'checks_radios_border_radius',
+                                array(
+                                        'label'      => __( 'Border Radius', 'stoke-gf-elementor' ),
+                                        'type'       => Controls_Manager::DIMENSIONS,
+                                        'size_units' => array( 'px', 'em', '%' ),
+                                        'selectors'  => array(
+                                                $checks_radios_before => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                                        ),
+                                )
+                        );
 			
 			$this->add_group_control(
 			Group_Control_Typography::get_type(),
@@ -734,9 +836,9 @@ $this->end_controls_section();
 			'max' => 5,
 			),
 			),
-			'selectors'  => array(
-			$checks_radios_labels => 'margin-left: {{SIZE}}{{UNIT}};',
-			),
+                        'selectors'  => array(
+                        $checks_radios_labels => 'padding-left: {{SIZE}}{{UNIT}};',
+                        ),
 			)
 			);
 			
@@ -949,13 +1051,13 @@ $this->end_controls_section();
 			),
 		);
 
-                $this->add_group_control(
-                        Group_Control_Border::get_type(),
-                        array(
-                                'name'     => 'file_upload_border',
-                                'selector' => $file_upload_button,
-                        ),
-                );
+               $this->add_group_control(
+                       Group_Control_Border::get_type(),
+                       array(
+                               'name'     => 'file_upload_border',
+                               'selector' => $file_upload_button,
+                       ),
+               );
 
                $this->add_responsive_control(
                        'file_upload_border_radius',
@@ -965,6 +1067,18 @@ $this->end_controls_section();
                                'size_units' => array( 'px', 'em', '%' ),
                                'selectors'  => array(
                                        $file_upload_button => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                               ),
+                       )
+               );
+
+               $this->add_responsive_control(
+                       'file_upload_padding',
+                       array(
+                               'label'      => __( 'Padding', 'stoke-gf-elementor' ),
+                               'type'       => Controls_Manager::DIMENSIONS,
+                               'size_units' => array( 'px', 'em', '%' ),
+                               'selectors'  => array(
+                                       $file_upload_button => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                                ),
                        )
                );
@@ -1024,46 +1138,6 @@ $this->end_controls_section();
                 );
 
                 $this->end_controls_section();
-
-               $this->start_controls_section(
-                       'section_form_advanced',
-                       array(
-                               'label' => __( 'Advanced', 'stoke-gf-elementor' ),
-                               'tab'   => Controls_Manager::TAB_ADVANCED,
-                       )
-               );
-
-               $this->add_control(
-                       'field_values',
-                       array(
-                               'label'       => __( 'Field Values', 'stoke-gf-elementor' ),
-                               'type'        => Controls_Manager::TEXTAREA,
-                               'default'     => '',
-                               // translators: Do not translate placeholders in square brackets. They are placeholders.
-                               'description' => strtr(
-                    __( 'Enter field values in the format: [example]. [link]Learn more.[/link]', 'stoke-gf-elementor' ),
-                    array(
-                                               '[example]' => '<code>input_1=First Name&amp;input_2=Last Name</code>',
-                                               '[link]'    => '<a href="https://docs.gravityforms.com/allow-field-to-be-populated-dynamically/#h-block" target="_blank">',
-                                               '[/link]'   => '<span class="screen-reader-text">' . esc_attr__( '(This link opens in a new window.)', 'stoke-gf-elementor' ) . '</span></a>',
-                                       )
-               ),
-                       )
-               );
-
-               $this->add_control(
-                       'tabindex',
-                       array(
-                               'label'       => __( 'Tab Index', 'stoke-gf-elementor' ),
-                               'type'        => Controls_Manager::NUMBER,
-                               'default'     => 0,
-                               'min'         => 0,
-                               'step'        => 1,
-                               'description' => __( 'Set the starting tabindex for the form.', 'stoke-gf-elementor' ),
-                       )
-               );
-
-              $this->end_controls_section();
 
         }
 
@@ -1164,8 +1238,8 @@ $this->end_controls_section();
 					)
                 );
 
-				echo $template; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			}
+                echo $template; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        }
 
 			return;
 		}
@@ -1178,21 +1252,10 @@ $this->end_controls_section();
 			return;
 		}
 
-                $title       = 'yes' === $settings['title'];
-                $description = 'yes' === $settings['description'];
-                $tabindex    = (int) $settings['tabindex'];
+               $title       = 'yes' === $settings['title'];
+               $description = 'yes' === $settings['description'];
 
-                $field_values = null;
-
-		if ( ! empty( $settings['field_values'] ) ) {
-			$field_values = array();
-
-			parse_str( $settings['field_values'], $field_values );
-
-			$field_values = array_map( 'esc_html', $field_values );
-		}
-
-                $ajax = 'yes' === $settings['ajax'];
+               $ajax = 'yes' === $settings['ajax'];
 
                 if ( Plugin::$instance->editor->is_edit_mode() ) {
                         $ajax = true; // Force-enable Ajax in the editor to prevent JS errors, caused in part by the $form_scripts_body contents.
@@ -1200,16 +1263,33 @@ $this->end_controls_section();
 
                 $this->add_render_attribute( self::ELEMENT_KEY, 'class', 'sge-gravity-form' );
 
-                $template = strtr(
-            '<div {attribute}>{form}</div>',
-            array(
-                                '{attribute}' => $this->get_render_attribute_string( self::ELEMENT_KEY ),
-                                '{form}'      => gravity_form( $form_id, $title, $description, false, $field_values, $ajax, $tabindex, false ),
-                        )
-        );
+               $template = strtr(
+           '<div {attribute}>{form}</div>',
+           array(
+                              '{attribute}' => $this->get_render_attribute_string( self::ELEMENT_KEY ),
+                              '{form}'      => gravity_form( $form_id, $title, $description, false, null, $ajax, 0, false ),
+                      )
+      );
 
                 echo $template; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-	}
+                ?>
+                <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                        document.querySelectorAll('.sge-gravity-form .ginput_container_checkbox li, .sge-gravity-form .ginput_container_radio li').forEach(function(choice) {
+                                var input = choice.querySelector('input[type="checkbox"], input[type="radio"]');
+                                var label = choice.querySelector('label');
+                                if (input && label && !label.previousElementSibling) {
+                                        var wrapper = document.createElement('span');
+                                        wrapper.className = 'sge-choice-wrapper';
+                                        choice.insertBefore(wrapper, input);
+                                        wrapper.appendChild(input);
+                                        wrapper.appendChild(label);
+                                }
+                        });
+                });
+                </script>
+                <?php
+        }
 
 	/**
 	 * Returns a list of Gravity Forms forms.
