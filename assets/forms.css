@@ -150,6 +150,7 @@
 .sge-gravity-form .ginput_container_checkbox input[type="checkbox"],
 .sge-gravity-form .ginput_container_radio input[type="radio"],
 .sge-gravity-form .ginput_container_consent input[type="checkbox"] {
+
     position: absolute;
     opacity: 0;
 }
@@ -164,9 +165,10 @@
     cursor: pointer;
 }
 
-.sge-gravity-form .ginput_container_checkbox input[type="checkbox"] + label::before,
+
 .sge-gravity-form .ginput_container_radio input[type="radio"] + label::before,
 .sge-gravity-form .ginput_container_consent input[type="checkbox"] + label::before {
+
     content: "";
     position: absolute;
     left: 0;
@@ -178,6 +180,7 @@
     background: transparent;
 }
 
+
 .sge-gravity-form .ginput_container_checkbox input[type="checkbox"] + label::before,
 .sge-gravity-form .ginput_container_consent input[type="checkbox"] + label::before {
     border-radius: 2px;
@@ -187,7 +190,7 @@
     border-radius: 50%;
 }
 
-.sge-gravity-form .ginput_container_checkbox input[type="checkbox"]:checked + label::before,
+
 .sge-gravity-form .ginput_container_radio input[type="radio"]:checked + label::before,
 .sge-gravity-form .ginput_container_consent input[type="checkbox"]:checked + label::before {
     background: currentColor;
