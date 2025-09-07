@@ -143,12 +143,6 @@ class FieldShortcodes {
      * Register admin menu.
      */
     public static function register_menu() {
-        add_submenu_page(
-            'gf_edit_forms',
-
-     * Register admin menu.
-     */
-    public static function register_menu() {
         add_options_page(
             esc_html__( 'GF Field Shortcodes', 'stoke-gf-elementor' ),
             esc_html__( 'GF Field Shortcodes', 'stoke-gf-elementor' ),
@@ -166,9 +160,10 @@ class FieldShortcodes {
     public static function admin_assets( $hook ) {
 
         if ( empty( $_GET['page'] ) || 'stkc-gf-field-shortcodes' !== $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            return;
+        }
 
         if ( 'settings_page_stkc-gf-field-shortcodes' !== $hook ) {
-
             return;
         }
 
@@ -179,7 +174,6 @@ class FieldShortcodes {
             '1.0.0',
             true
         );
-
 
         wp_localize_script(
             'stkc-gf-sc-admin',
@@ -239,14 +233,10 @@ class FieldShortcodes {
                     </thead>
                     <tbody>
                     <?php foreach ( $mappings as $i => $m ) :
-                        $form   = (int) $m['form_id'];
-
-                        $field  = (string) $m['field_id'];
-
-                        $field  = esc_attr( $m['field_id'] );
-
-                        $tag    = esc_attr( $m['tag'] );
-                        $source = esc_attr( $m['source'] );
+                        $form    = (int) $m['form_id'];
+                        $field   = esc_attr( (string) $m['field_id'] );
+                        $tag     = esc_attr( $m['tag'] );
+                        $source  = esc_attr( $m['source'] );
                         $preview = sprintf( '?eid={entry_id}&f%d_%s={Field:%s}', $form, $field, $field );
                         ?>
                         <tr>
