@@ -23,6 +23,71 @@
     outline: none;
 }
 
+/* Submit button */
+.sge-gravity-form .gform_button,
+.sge-gravity-form .gform_save_link {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: none !important;
+    outline: none !important;
+    -webkit-box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: none;
+}
+
+.sge-gravity-form .gform_button:focus,
+.sge-gravity-form .gform_save_link:focus {
+    box-shadow: none !important;
+    outline: none !important;
+    -webkit-box-shadow: none !important;
+    border-color: inherit !important;
+    box-shadow: none;
+    outline: none;
+}
+
+/* Next button */
+.sge-gravity-form .gform_next_button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: none !important;
+    outline: none !important;
+    -webkit-box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: none;
+}
+
+.sge-gravity-form .gform_next_button:focus {
+    box-shadow: none !important;
+    outline: none !important;
+    -webkit-box-shadow: none !important;
+    border-color: inherit !important;
+    box-shadow: none;
+    outline: none;
+}
+
+/* Previous button */
+.sge-gravity-form .gform_previous_button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: none !important;
+    outline: none !important;
+    -webkit-box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: none;
+}
+
+.sge-gravity-form .gform_previous_button:focus {
+    box-shadow: none !important;
+    outline: none !important;
+    -webkit-box-shadow: none !important;
+    border-color: inherit !important;
+    box-shadow: none;
+    outline: none;
+}
+
 /* Remove system selection highlight when typing */
 .sge-gravity-form input::selection,
 .sge-gravity-form input::-moz-selection,
