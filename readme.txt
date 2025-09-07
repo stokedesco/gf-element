@@ -22,7 +22,7 @@ With this plugin, you can:
 
 == Installation ==
 
-1. Upload the plugin files to the `/wp-content/plugins/stoke-gf-elmentor/` directory, or install the plugin through the WordPress plugins screen directly.
+1. Upload the plugin files to the `/wp-content/plugins/stoke-gf-elementor/` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress.
 3. Go to your Elementor page editor, search for "Stoke GF Elementor" in the Elementor widget panel, and drag the widget into your layout.
 4. Select the Gravity Form you want to display and customize the settings as desired.
