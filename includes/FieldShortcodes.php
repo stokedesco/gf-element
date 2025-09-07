@@ -16,7 +16,8 @@ class FieldShortcodes {
      */
     public static function init() {
         add_action( 'admin_init', [ __CLASS__, 'register_settings' ] );
-        add_action( 'admin_menu', [ __CLASS__, 'register_menu' ] );
+        // Register the menu late so it appears after other Gravity Forms items.
+        add_action( 'admin_menu', [ __CLASS__, 'register_menu' ], 999 );
         add_action( 'admin_enqueue_scripts', [ __CLASS__, 'admin_assets' ] );
         add_action( 'init', [ __CLASS__, 'register_shortcodes' ] );
     }
