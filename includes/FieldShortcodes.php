@@ -92,11 +92,7 @@ class FieldShortcodes {
         return $out;
     }
 
-    /**
-     * Retrieve available Gravity Forms and their fields.
-     *
-     * @return array
-     */
+
     private static function get_forms() {
         static $forms = null;
         if ( null !== $forms ) {
@@ -149,6 +145,11 @@ class FieldShortcodes {
     public static function register_menu() {
         add_submenu_page(
             'gf_edit_forms',
+
+     * Register admin menu.
+     */
+    public static function register_menu() {
+        add_options_page(
             esc_html__( 'GF Field Shortcodes', 'stoke-gf-elementor' ),
             esc_html__( 'GF Field Shortcodes', 'stoke-gf-elementor' ),
             'manage_options',
@@ -163,7 +164,11 @@ class FieldShortcodes {
      * @param string $hook Current page hook.
      */
     public static function admin_assets( $hook ) {
+
         if ( empty( $_GET['page'] ) || 'stkc-gf-field-shortcodes' !== $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+        if ( 'settings_page_stkc-gf-field-shortcodes' !== $hook ) {
+
             return;
         }
 
@@ -175,6 +180,7 @@ class FieldShortcodes {
             true
         );
 
+
         wp_localize_script(
             'stkc-gf-sc-admin',
             'stkcGfScData',
@@ -183,6 +189,7 @@ class FieldShortcodes {
                 'i18n'  => [ 'selectField' => esc_html__( 'Select a field', 'stoke-gf-elementor' ) ],
             ]
         );
+
     }
 
     /**
@@ -193,6 +200,7 @@ class FieldShortcodes {
         $enabled  = ! empty( $opt['enabled'] );
         $mappings = ! empty( $opt['mappings'] ) && is_array( $opt['mappings'] ) ? $opt['mappings'] : [];
         $forms    = self::get_forms();
+
         ?>
         <div class="wrap">
             <h1><?php esc_html_e( 'GF Field Shortcodes', 'stoke-gf-elementor' ); ?></h1>
@@ -217,8 +225,13 @@ class FieldShortcodes {
                 <table class="widefat stkc-gf-mappings">
                     <thead>
                     <tr>
+
                         <th><?php esc_html_e( 'Form', 'stoke-gf-elementor' ); ?></th>
                         <th><?php esc_html_e( 'Field', 'stoke-gf-elementor' ); ?></th>
+
+                        <th><?php esc_html_e( 'Form ID', 'stoke-gf-elementor' ); ?></th>
+                        <th><?php esc_html_e( 'Field ID', 'stoke-gf-elementor' ); ?></th>
+
                         <th><?php esc_html_e( 'Shortcode Tag', 'stoke-gf-elementor' ); ?></th>
                         <th><?php esc_html_e( 'Source', 'stoke-gf-elementor' ); ?></th>
                         <th></th>
@@ -227,12 +240,17 @@ class FieldShortcodes {
                     <tbody>
                     <?php foreach ( $mappings as $i => $m ) :
                         $form   = (int) $m['form_id'];
+
                         $field  = (string) $m['field_id'];
+
+                        $field  = esc_attr( $m['field_id'] );
+
                         $tag    = esc_attr( $m['tag'] );
                         $source = esc_attr( $m['source'] );
                         $preview = sprintf( '?eid={entry_id}&f%d_%s={Field:%s}', $form, $field, $field );
                         ?>
                         <tr>
+
                             <td>
                                 <select name="stkc_gf_sc[mappings][<?php echo esc_attr( $i ); ?>][form_id]" class="stkc-form-select">
                                     <?php foreach ( $forms as $fid => $fdata ) : ?>
@@ -249,6 +267,10 @@ class FieldShortcodes {
                                     endif; ?>
                                 </select>
                             </td>
+
+                            <td><input type="number" class="small-text" min="1" name="stkc_gf_sc[mappings][<?php echo esc_attr( $i ); ?>][form_id]" value="<?php echo esc_attr( $form ); ?>" /></td>
+                            <td><input type="text" class="small-text" name="stkc_gf_sc[mappings][<?php echo esc_attr( $i ); ?>][field_id]" value="<?php echo esc_attr( $field ); ?>" /></td>
+
                             <td><input type="text" class="regular-text" name="stkc_gf_sc[mappings][<?php echo esc_attr( $i ); ?>][tag]" value="<?php echo esc_attr( $tag ); ?>" /></td>
                             <td>
                                 <select name="stkc_gf_sc[mappings][<?php echo esc_attr( $i ); ?>][source]">
@@ -274,6 +296,7 @@ class FieldShortcodes {
 
         <script type="text/html" id="stkc-gf-sc-row-template">
             <tr>
+
                 <td>
                     <select name="stkc_gf_sc[mappings][__index__][form_id]" class="stkc-form-select">
                         <?php foreach ( $forms as $fid => $fdata ) : ?>
@@ -284,6 +307,10 @@ class FieldShortcodes {
                 <td>
                     <select name="stkc_gf_sc[mappings][__index__][field_id]" class="stkc-field-select"></select>
                 </td>
+
+                <td><input type="number" class="small-text" min="1" name="stkc_gf_sc[mappings][__index__][form_id]" value="" /></td>
+                <td><input type="text" class="small-text" name="stkc_gf_sc[mappings][__index__][field_id]" value="" /></td>
+
                 <td><input type="text" class="regular-text" name="stkc_gf_sc[mappings][__index__][tag]" value="" /></td>
                 <td>
                     <select name="stkc_gf_sc[mappings][__index__][source]">
