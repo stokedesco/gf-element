@@ -9,6 +9,7 @@
     outline: none !important;
     -webkit-box-shadow: none !important;
     -webkit-tap-highlight-color: transparent;
+    box-shadow: none;
 }
 
 .sge-gravity-form input:focus,
@@ -18,6 +19,8 @@
     outline: none !important;
     -webkit-box-shadow: none !important;
     border-color: inherit !important;
+    box-shadow: none;
+    outline: none;
 }
 
 /* Remove system selection highlight when typing */

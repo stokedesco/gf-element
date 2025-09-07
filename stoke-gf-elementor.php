@@ -109,5 +109,6 @@ function enqueue_frontend_styles() {
                 '1.0.0'
         );
 }
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_frontend_styles', 99 );
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_frontend_styles' );
+
 
