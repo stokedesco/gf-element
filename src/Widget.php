@@ -428,6 +428,73 @@ array(
 
                $this->end_controls_section();
 
+               $this->start_controls_section(
+                       'section_outer',
+                       array(
+                               'label' => __( 'Outer', 'gk-gravity-forms-elementor-widget' ),
+                               'tab'   => Controls_Manager::TAB_STYLE,
+                       )
+               );
+
+               $this->add_responsive_control(
+                       'field_row_gap',
+                       array(
+                               'label'      => __( 'Row Gap', 'gk-gravity-forms-elementor-widget' ),
+                               'type'       => Controls_Manager::SLIDER,
+                               'size_units' => array( 'px', 'em' ),
+                               'range'      => array(
+                                       'px' => array(
+                                               'min' => 0,
+                                               'max' => 100,
+                                       ),
+                                       'em' => array(
+                                               'min' => 0,
+                                               'max' => 10,
+                                       ),
+                               ),
+                               'selectors'  => array(
+                                       '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_fields' => 'row-gap: {{SIZE}}{{UNIT}};',
+                                       '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield'       => 'margin-bottom: {{SIZE}}{{UNIT}};',
+                               ),
+                       )
+               );
+
+               $this->add_responsive_control(
+                       'field_column_gap',
+                       array(
+                               'label'      => __( 'Column Gap', 'gk-gravity-forms-elementor-widget' ),
+                               'type'       => Controls_Manager::SLIDER,
+                               'size_units' => array( 'px', 'em' ),
+                               'range'      => array(
+                                       'px' => array(
+                                               'min' => 0,
+                                               'max' => 100,
+                                       ),
+                                       'em' => array(
+                                               'min' => 0,
+                                               'max' => 10,
+                                       ),
+                               ),
+                               'selectors'  => array(
+                                       '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_fields' => 'column-gap: {{SIZE}}{{UNIT}};',
+                               ),
+                       )
+               );
+
+               $this->add_responsive_control(
+                       'field_inner_padding',
+                       array(
+                               'label'      => __( 'Field Inner Padding', 'gk-gravity-forms-elementor-widget' ),
+                               'type'       => Controls_Manager::DIMENSIONS,
+                               'size_units' => array( 'px', 'em', '%' ),
+                               'selectors'  => array(
+                                       '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                               ),
+                       )
+               );
+
+               $this->end_controls_section();
+
                $this->section_progress();
 
                $this->start_controls_section(
