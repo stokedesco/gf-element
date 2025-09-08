@@ -218,21 +218,27 @@ $sub_labels = implode(
                         )
                 );
 
-                $submit_button = implode(
-                        ', ',
-                        array(
-                                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_button',
-                                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_save_link',
-                        )
-                );
+               $submit_button = implode(
+                       ', ',
+                       array(
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_button',
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform-button',
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' button[type="submit"]',
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' input[type="submit"]',
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_save_link',
+                       )
+               );
 
-               $submit_button_hover = implode(
+              $submit_button_hover = implode(
                        ', ',
                        array(
                                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_button:hover',
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform-button:hover',
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' button[type="submit"]:hover',
+                               '{{WRAPPER}} .' . self::ELEMENT_KEY . ' input[type="submit"]:hover',
                                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_save_link:hover',
                        )
-               );
+              );
 
                 $next_button = '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gform_next_button';
 
