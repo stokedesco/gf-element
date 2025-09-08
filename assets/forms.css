@@ -2,6 +2,8 @@
 .sge-gravity-form input:not([type="checkbox"]):not([type="radio"]),
 .sge-gravity-form select,
 .sge-gravity-form textarea,
+.sge-gravity-form button,
+.sge-gravity-form input[type="submit"],
 .sge-gravity-form .gform_button,
 .sge-gravity-form .gform_next_button,
 .sge-gravity-form .gform_previous_button,
@@ -19,6 +21,8 @@
 .sge-gravity-form input:not([type="checkbox"]):not([type="radio"]):focus,
 .sge-gravity-form select:focus,
 .sge-gravity-form textarea:focus,
+.sge-gravity-form button:focus,
+.sge-gravity-form input[type="submit"]:focus,
 .sge-gravity-form .gform_button:focus,
 .sge-gravity-form .gform_next_button:focus,
 .sge-gravity-form .gform_previous_button:focus,
@@ -33,7 +37,9 @@
 
 /* Submit button */
 .sge-gravity-form .gform_button,
-.sge-gravity-form .gform_save_link {
+.sge-gravity-form .gform_save_link,
+.sge-gravity-form button,
+.sge-gravity-form input[type="submit"] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -45,7 +51,9 @@
 }
 
 .sge-gravity-form .gform_button:focus,
-.sge-gravity-form .gform_save_link:focus {
+.sge-gravity-form .gform_save_link:focus,
+.sge-gravity-form button:focus,
+.sge-gravity-form input[type="submit"]:focus {
     box-shadow: none !important;
     outline: none !important;
     -webkit-box-shadow: none !important;
@@ -100,7 +108,9 @@
 .sge-gravity-form .gform_button,
 .sge-gravity-form .gform_save_link,
 .sge-gravity-form .gform_next_button,
-.sge-gravity-form .gform_previous_button {
+.sge-gravity-form .gform_previous_button,
+.sge-gravity-form button,
+.sge-gravity-form input[type="submit"] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -115,7 +125,9 @@
 .sge-gravity-form .gform_button:focus,
 .sge-gravity-form .gform_save_link:focus,
 .sge-gravity-form .gform_next_button:focus,
-.sge-gravity-form .gform_previous_button:focus {
+.sge-gravity-form .gform_previous_button:focus,
+.sge-gravity-form button:focus,
+.sge-gravity-form input[type="submit"]:focus {
     box-shadow: none !important;
     outline: none !important;
     -webkit-box-shadow: none !important;
