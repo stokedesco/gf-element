@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+### Added
+- Typography and color controls for field descriptions
+
 ## [1.0.1] - 2025-09-07
 ### Fixed
 - Checkbox alignment issue on the left margin
