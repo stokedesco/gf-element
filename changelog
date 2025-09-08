@@ -1,10 +1,10 @@
 # Changelog
 
-## [Unreleased]
+
+## [1.0.2] - 2025-09-08
 ### Added
 - Typography and color controls for field descriptions
-
-### Fixed
+## FIxed
 - Submit button styling not overriding Gravity Forms themes
 
 ## [1.0.1] - 2025-09-07
