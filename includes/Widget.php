@@ -609,6 +609,34 @@ $sub_labels = implode(
                        )
                );
 
+               $this->add_control(
+                       'field_description_heading',
+                       array(
+                               'label'     => __( 'Field Descriptions', 'stoke-gf-elementor' ),
+                               'type'      => Controls_Manager::HEADING,
+                               'separator' => 'before',
+                       )
+               );
+
+               $this->add_group_control(
+                       Group_Control_Typography::get_type(),
+                       array(
+                               'name'     => 'field_description_typography',
+                               'selector' => '{{WRAPPER}} .sge-gravity-form .gfield_description',
+                       )
+               );
+
+               $this->add_control(
+                       'field_description_color',
+                       array(
+                               'label'     => __( 'Text Color', 'stoke-gf-elementor' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       '{{WRAPPER}} .sge-gravity-form .gfield_description' => 'color: {{VALUE}};',
+                               ),
+                       )
+               );
+
                $this->end_controls_section();
 
                $this->start_controls_section(
