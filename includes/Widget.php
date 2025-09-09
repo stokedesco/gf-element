@@ -722,36 +722,6 @@ $sub_labels = implode(
                );
 
                $this->end_controls_section();
-
-               $this->start_controls_section(
-                       'section_list_field_headings',
-                       array(
-                               'label' => __( 'List Field Column Headings', 'stoke-gf-elementor' ),
-                               'tab'   => Controls_Manager::TAB_STYLE,
-                       )
-               );
-
-               $this->add_group_control(
-                       Group_Control_Typography::get_type(),
-                       array(
-                               'name'     => 'list_field_headings_typography',
-                               'selector' => '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield_list thead th',
-                       )
-               );
-
-               $this->add_control(
-                       'list_field_headings_color',
-                       array(
-                               'label'     => __( 'Text Color', 'stoke-gf-elementor' ),
-                               'type'      => Controls_Manager::COLOR,
-                               'selectors' => array(
-                                       '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield_list thead th' => 'color: {{VALUE}};',
-                               ),
-                       )
-               );
-
-               $this->end_controls_section();
-
                $this->start_controls_section(
                        'section_inputs',
                        array(
