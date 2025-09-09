@@ -547,7 +547,7 @@ $sub_labels = implode(
                        Group_Control_Typography::get_type(),
                        array(
                                'name'     => 'label_typography',
-                               'selector' => '{{WRAPPER}} .sge-gravity-form .gfield_label',
+                               'selector' => '{{WRAPPER}} .sge-gravity-form .gfield_label, {{WRAPPER}} .sge-gravity-form .gpnf-field-label',
                        )
                );
 
@@ -557,7 +557,7 @@ $sub_labels = implode(
                                'label'     => __( 'Text Color', 'stoke-gf-elementor' ),
                                'type'      => Controls_Manager::COLOR,
                                'selectors' => array(
-                                       '{{WRAPPER}} .sge-gravity-form .gfield_label' => 'color: {{VALUE}};',
+                                       '{{WRAPPER}} .sge-gravity-form .gfield_label, {{WRAPPER}} .sge-gravity-form .gpnf-field-label' => 'color: {{VALUE}};',
                                ),
                        )
                );
@@ -639,6 +639,113 @@ $sub_labels = implode(
                                'type'      => Controls_Manager::COLOR,
                                'selectors' => array(
                                        '{{WRAPPER}} .sge-gravity-form .gfield_description' => 'color: {{VALUE}};',
+                               ),
+                       )
+               );
+
+               $this->end_controls_section();
+
+               $this->start_controls_section(
+                       'section_section_headings',
+                       array(
+                               'label' => __( 'Section Headings', 'stoke-gf-elementor' ),
+                               'tab'   => Controls_Manager::TAB_STYLE,
+                       )
+               );
+
+               $this->add_group_control(
+                       Group_Control_Typography::get_type(),
+                       array(
+                               'name'     => 'section_heading_typography',
+                               'selector' => '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gsection_title',
+                       )
+               );
+
+               $this->add_control(
+                       'section_heading_color',
+                       array(
+                               'label'     => __( 'Heading Color', 'stoke-gf-elementor' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gsection_title' => 'color: {{VALUE}};',
+                               ),
+                       )
+               );
+
+               $this->add_group_control(
+                       Group_Control_Typography::get_type(),
+                       array(
+                               'name'     => 'section_description_typography',
+                               'label'    => __( 'Description Typography', 'stoke-gf-elementor' ),
+                               'selector' => '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gsection_description',
+                       )
+               );
+
+               $this->add_control(
+                       'section_description_color',
+                       array(
+                               'label'     => __( 'Description Color', 'stoke-gf-elementor' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gsection_description' => 'color: {{VALUE}};',
+                               ),
+                       )
+               );
+
+               $this->end_controls_section();
+
+               $this->start_controls_section(
+                       'section_html_fields',
+                       array(
+                               'label' => __( 'HTML Fields', 'stoke-gf-elementor' ),
+                               'tab'   => Controls_Manager::TAB_STYLE,
+                       )
+               );
+
+               $this->add_group_control(
+                       Group_Control_Typography::get_type(),
+                       array(
+                               'name'     => 'html_field_typography',
+                               'selector' => '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield_html',
+                       )
+               );
+
+               $this->add_control(
+                       'html_field_color',
+                       array(
+                               'label'     => __( 'Text Color', 'stoke-gf-elementor' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield_html' => 'color: {{VALUE}};',
+                               ),
+                       )
+               );
+
+               $this->end_controls_section();
+
+               $this->start_controls_section(
+                       'section_list_field_headings',
+                       array(
+                               'label' => __( 'List Field Column Headings', 'stoke-gf-elementor' ),
+                               'tab'   => Controls_Manager::TAB_STYLE,
+                       )
+               );
+
+               $this->add_group_control(
+                       Group_Control_Typography::get_type(),
+                       array(
+                               'name'     => 'list_field_headings_typography',
+                               'selector' => '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield_list thead th',
+                       )
+               );
+
+               $this->add_control(
+                       'list_field_headings_color',
+                       array(
+                               'label'     => __( 'Text Color', 'stoke-gf-elementor' ),
+                               'type'      => Controls_Manager::COLOR,
+                               'selectors' => array(
+                                       '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield_list thead th' => 'color: {{VALUE}};',
                                ),
                        )
                );

@@ -207,3 +207,41 @@
 .sge-gravity-form .ginput_container_consent input[type="checkbox"]:checked + label::before {
     background: currentColor;
 }
+
+/* Section headings */
+.sge-gravity-form .gsection_title,
+.sge-gravity-form .gsection_description {
+    color: inherit;
+    font: inherit;
+}
+
+/* HTML fields */
+.sge-gravity-form .gfield_html,
+.sge-gravity-form .gfield_html * {
+    color: inherit;
+    font: inherit;
+}
+
+/* List field column headings */
+.sge-gravity-form .gfield_list thead th {
+    color: inherit;
+    font: inherit;
+}
+
+/* Side-by-side textareas spacing */
+.sge-gravity-form .ginput_container_textarea {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+.sge-gravity-form .ginput_container_textarea textarea {
+    flex: 1;
+}
+
+/* Gravity Wiz Nested Forms typography */
+.sge-gravity-form .gpnf-nested-form,
+.sge-gravity-form .gpnf-nested-form * {
+    color: inherit;
+    font: inherit;
+}
