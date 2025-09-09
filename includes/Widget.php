@@ -210,6 +210,7 @@ $sub_labels = implode(
                '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .gfield_list th',
        )
 );
+$address_fields = '{{WRAPPER}} .' . self::ELEMENT_KEY . ' .ginput_container_address .ginput_complex > span';
                 $file_upload_button = implode(
                         ', ',
                         array(
@@ -531,6 +532,28 @@ $sub_labels = implode(
                        )
                );
 
+               $this->add_responsive_control(
+                       'address_fields_vertical_padding',
+                       array(
+                               'label'      => __( 'Address Fields Vertical Padding', 'stoke-gf-elementor' ),
+                               'type'       => Controls_Manager::SLIDER,
+                               'size_units' => array( 'px', 'em' ),
+                               'range'      => array(
+                                       'px' => array(
+                                               'min' => 0,
+                                               'max' => 100,
+                                       ),
+                                       'em' => array(
+                                               'min' => 0,
+                                               'max' => 10,
+                                       ),
+                               ),
+                               'selectors'  => array(
+                                       $address_fields => 'margin-bottom: {{SIZE}}{{UNIT}};',
+                               ),
+                       )
+               );
+
                $this->end_controls_section();
 
                $this->section_progress();
@@ -569,6 +592,28 @@ $sub_labels = implode(
                                'type'      => Controls_Manager::COLOR,
                                'selectors' => array(
                                        '{{WRAPPER}} .sge-gravity-form .gfield_required' => 'color: {{VALUE}};',
+                               ),
+                       )
+               );
+
+               $this->add_responsive_control(
+                       'label_space_between',
+                       array(
+                               'label'      => __( 'Space Between', 'stoke-gf-elementor' ),
+                               'type'       => Controls_Manager::SLIDER,
+                               'size_units' => array( 'px', 'em' ),
+                               'range'      => array(
+                                       'px' => array(
+                                               'min' => 0,
+                                               'max' => 100,
+                                       ),
+                                       'em' => array(
+                                               'min' => 0,
+                                               'max' => 10,
+                                       ),
+                               ),
+                               'selectors'  => array(
+                                       '{{WRAPPER}} .sge-gravity-form .gfield_label, {{WRAPPER}} .sge-gravity-form .gpnf-field-label' => 'margin-bottom: {{SIZE}}{{UNIT}};',
                                ),
                        )
                );
